@@ -26,3 +26,17 @@ E:\Project\AVSTech\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
 E:\Project\AVSTech\Common\obj\Debug\Common.csproj.CopyComplete
 E:\Project\AVSTech\Common\obj\Debug\Common.dll
 E:\Project\AVSTech\Common\obj\Debug\Common.pdb
+C:\Users\Anil\source\repos\sample\Common\bin\Debug\Common.dll.config
+C:\Users\Anil\source\repos\sample\Common\bin\Debug\Common.dll
+C:\Users\Anil\source\repos\sample\Common\bin\Debug\Common.pdb
+C:\Users\Anil\source\repos\sample\Common\bin\Debug\AVSModels.dll
+C:\Users\Anil\source\repos\sample\Common\bin\Debug\EntityFramework.dll
+C:\Users\Anil\source\repos\sample\Common\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Anil\source\repos\sample\Common\bin\Debug\AVSModels.pdb
+C:\Users\Anil\source\repos\sample\Common\bin\Debug\EntityFramework.xml
+C:\Users\Anil\source\repos\sample\Common\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Anil\source\repos\sample\Common\obj\Debug\Common.csproj.AssemblyReference.cache
+C:\Users\Anil\source\repos\sample\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+C:\Users\Anil\source\repos\sample\Common\obj\Debug\Common.csproj.CopyComplete
+C:\Users\Anil\source\repos\sample\Common\obj\Debug\Common.dll
+C:\Users\Anil\source\repos\sample\Common\obj\Debug\Common.pdb

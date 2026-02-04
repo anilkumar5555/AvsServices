@@ -22,7 +22,6 @@ namespace Common.Helper
             }
             return _str.ToString();
         }
-
         public static DateTime GetCurrentDate()
         {
             TimeZoneInfo INDIAN_ZONE = TimeZoneInfo.FindSystemTimeZoneById("Indian Standard Time");
