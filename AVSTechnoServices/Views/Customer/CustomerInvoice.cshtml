@@ -1,0 +1,261 @@
+﻿
+@{
+    ViewBag.Title = "CustomerInvoice";
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>customer invoice</title>
+    <style>
+        table {
+           width:100%;
+        
+        }
+        tr, th, td {
+            
+        }
+        .tbl {
+            border-left: 0px;
+            border-bottom: 1px solid;
+            border-top: 0px;
+        }
+
+        .tbr {
+            border-right: 0px;
+            border-bottom: 1px solid;
+            border-top: 0px;
+            border-left: 0px;
+        }
+
+        .btl {
+            border-right: 1px solid;
+            border-bottom: 0px;
+            border-top: 0px;
+            border-left: 0px;
+        }
+        .btr {
+            border-right: 1px solid;
+            border-bottom: 0px;
+            border-top: 0px;
+            border-left: 0px;
+        }
+
+</style>
+        </head >
+        <body >
+            <table>
+                <tr>
+                    <th>
+                        AVS TECHNO SERVICES<br />
+                        VOLTAS EXCLUSIVE SHOW ROOM & HVAC PROJECTS<br />
+                        #8-4-209, Rampur, Kaman Road, Opp:IDBI BANK-Karimnagar-505001<br />
+                        GSTIN:36ABHFA3494J1Z5  &nbsp; TEL:+917207227222<br />
+                    </th>
+                </tr>
+                
+                </table>
+            <table>
+                <tr>
+                    <th colspan="2" style="border-bottom:1px solid">Tax &nbsp; Invoice</th>
+                </tr>
+                <tr >
+                    <td style="width:50%;">
+                        <table class="tbl">
+                            <tr>
+                                <td>InVoice No:</td>
+                                <td>AVS KNR 91</td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td style="width:50%;">
+                        <table class="tbr">
+                            <tr>
+                               <td>Transport Mode:</td>
+                               <td>Truck</td>
+                            </tr>
+                        </table>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td style="width:50%;">
+                        <table class="tbl">
+                            <tr>
+                                <td>InVoice Date:</td>
+                                <td>AVS KNR 91</td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td style="width:50%;">
+                        <table class="tbr">
+                            <tr>
+                                <td>Vechile number:</td>
+                                <td>TS102</td>
+                            </tr>
+                        </table>
+
+                <tr>
+                    <td style="width:50%;">
+                        <table  class="tbl">
+                            <tr>
+                                <td>Reverse Charge(Y/N):</td>
+                                <td>N</td>
+                            </tr>
+                        </table>
+                    <td style="width:50%;">
+                        <table  class="tbr">
+                            <tr>
+                                <td>Date Of Supply:</td>
+                                <td>12/1/2021</td>
+                            </tr>
+                        </table>
+
+                </tr>
+                <tr>
+                    <td>
+                        <table class="tbl">
+                            <tr>
+                                <td>State</td>
+                                <td>Code</td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table  class="tbr">
+                            <tr>
+                                <td>GSTIN</td>
+                            </tr>
+                        </table>
+                    </td>
+               </tr>
+                </table>
+            <table>
+                <tr>
+                    <td>
+                        <table class="btl">
+                            <tr>
+                                <td>
+                                    <table class="tbr">
+                                        <tr>
+                                            <th style="width:100%">Bill to Party</th>
+                                        </tr>
+                                    </table>
+                                </td>
+
+                            </tr>
+                            <tr><td>Name: Aditya B</td></tr>
+                            <tr><td>H.NO:5-4-406,Ganesh Nagar,Karimnagar-505001</td></tr>
+                            <tr><td>Phone Number: 9658458567</td></tr>
+
+                            <tr>
+                                <td>GSTIN</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table style="border:0px !important">
+                                        <tr>
+                                            <td>State</td>
+                                            <td>Code</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table class="btr">
+                            <tr>
+                                <td>
+                                    <table class="tbr">
+                                        <tr>
+                                            <th style="width:100%">Ship to Party</th>
+                                        </tr>
+                                    </table>
+                                </td>
+                               
+                            </tr>
+                            <tr><td>Name: Aditya B</td></tr>
+                            <tr><td>H.NO:5-4-406,Ganesh Nagar,Karimnagar-505001</td></tr>
+                            <tr><td>Phone Number: 9658458567</td></tr>
+
+                            <tr>
+                                <td>GSTIN</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table style="border:0px !important">
+                                        <tr>
+                                            <td>State</td>
+                                            <td>Code</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <th>S.NO</th>
+                    <th>Product Description</th>
+                    <th>HSN Code</th>
+                    <th>MRP</th>
+                    <th>QTY</th>
+                    <th>Rate</th>
+                    <th>Taxable Value</th>
+                    <th>
+                        <table>
+                            <tr colspan="2">CGST
+                                <th>Rate</th>
+                                <th>Amount</th>
+                            </tr>
+                        </table>
+                    </th>
+                    <th>
+                        <table>
+                            <tr colspan="2">SGST
+                                <th>Rate</th>
+                                <th>Amount</th>
+                            </tr>
+                        </table>
+                    </th>
+                    <th>Total</th>
+
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>VOLTAS CF HT 320 DDP LTR</td>
+                    <td>841448109</td>
+                    <td>30,090.00</td>
+                    <td>1</td>
+                    <td>24,000.00</td>
+                    <td>20,338.98</td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td>9</td>
+                                <td>1,830.51</td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td>9</td>
+                                <td>1,830.51</td>
+                            </tr>
+                        </table>
+                    </td>
+                    
+                    <td>24,000.00</td>
+                </tr>
+            </table>
+        </body >
+        </html >
+

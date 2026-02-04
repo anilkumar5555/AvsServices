@@ -1,0 +1,315 @@
+﻿@{ ViewBag.Title = "Home Page";
+                Layout = "~/Views/Shared/_CustomMainLayout.cshtml"; }
+
+    <style>
+        .title {
+            font-size: 14px !important;
+            color: black;
+        }
+
+        .card {
+            box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+            -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+            -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+        }
+    </style>
+
+<section class="wrapper">
+    <div class="row mb" style="margin-top:20px!important;">
+        <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
+            <div class="card-deck" style="width:200px !important; color:black !important;">
+                <div class="card white-bg">
+                    <div class="card-head">
+                        @*<img class="card-img-top text-center" src="~/Content/Nscripts/img/fridge1.png" alt="Card image cap" style="margin-left:80px !important;">*@
+                        <i class="fa fa-shopping-cart fa-4x" style="margin-left:60px!important;"></i>
+                    </div>
+                    <div class="card-body text-center" style="color:black !important">
+                        <p class="card-text"></p>
+                        <p class="card-text" style="font-size:20px"><b>Refrigerator</b></p>
+                        <p class="card-text"><b>Sales:</b></p>
+                        <p class="card-text"><b>Purchase:</b></p>
+                        <p class="card-text"><b>Stock:</b></p>
+                        <button class="btn btn-primary" style="margin-bottom:10px">View Models</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
+            <div class="card-deck" style="width:200px !important; color:black !important;">
+                <div class="card white-bg">
+                    <div class="card-head">
+                        @*<img class="card-img-top text-center" src="~/Content/Nscripts/img/fridge1.png" alt="Card image cap" style="margin-left:80px !important;">*@
+                        <i class="fa fa-shopping-cart fa-4x" style="margin-left:60px!important;"></i>
+                    </div>
+                    <div class="card-body text-center" style="color:black !important">
+                        <p class="card-text"></p>
+                        <p class="card-text" style="font-size:20px"><b>Air Conditioner</b></p>
+                        <p class="card-text"><b>Sales:</b></p>
+                        <p class="card-text"><b>Purchase:</b></p>
+                        <p class="card-text"><b>Stock:</b></p>
+                        <button class="btn btn-primary" style="margin-bottom:10px">View Models</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
+            <div class="card-deck" style="width:200px !important; color:black !important;">
+                <div class="card white-bg">
+                    <div class="card-head">
+                        @*<img class="card-img-top text-center" src="~/Content/Nscripts/img/fridge1.png" alt="Card image cap" style="margin-left:80px !important;">*@
+                        <i class="fa fa-shopping-cart fa-4x" style="margin-left:60px!important;"></i>
+                    </div>
+                    <div class="card-body text-center" style="color:black !important">
+                        <p class="card-text"></p>
+                        <p class="card-text" style="font-size:20px"><b>Coolers</b></p>
+                        <p class="card-text"><b>Sales:</b></p>
+                        <p class="card-text"><b>Purchase:</b></p>
+                        <p class="card-text"><b>Stock:</b></p>
+                        <button class="btn btn-primary" style="margin-bottom:10px">View Models</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
+            <div class="card-deck" style="width:200px !important; color:black !important;">
+                <div class="card white-bg">
+                    <div class="card-head">
+                        @*<img class="card-img-top text-center" src="~/Content/Nscripts/img/fridge1.png" alt="Card image cap" style="margin-left:80px !important;">*@
+                        <i class="fa fa-shopping-cart fa-4x" style="margin-left:60px!important;"></i>
+                    </div>
+                    <div class="card-body text-center" style="color:black !important">
+                        <p class="card-text"></p>
+                        <p class="card-text" style="font-size:20px"><b>Water Dispenser</b></p>
+                        <p class="card-text"><b>Sales:</b></p>
+                        <p class="card-text"><b>Purchase:</b></p>
+                        <p class="card-text"><b>Stock:</b></p>
+                        <button class="btn btn-primary" style="margin-bottom:10px">View Models</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*<div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
+                <div class="info-box main-bg">
+                    <i class="fa fa-shopping-cart"></i>
+                    <div class="title" style="cursor:pointer;" onclick="loadStausTransactions(1)">Name:Refrigerator</div>
+                    <div class="title" style="cursor:pointer;" onclick="loadStausTransactions(1)"><b>Sales:</b></div>
+                    <div class="title" style="cursor:pointer;" onclick="loadStausTransactions(1)"><b>Purchase:</b></div>
+                    <button class="btn btn-primary">View Models</button>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-2 col-sm-12 col-xs-12">
+                <div class="info-box lime-bg">
+                    <i class="fa fa-shopping-cart"></i>
+                    <div class="title" style="cursor:pointer;" onclick="loadStausTransactions(1)">Name:AC</div>
+                    <div class="title" style="cursor:pointer;" onclick="loadStausTransactions(1)">Sales:</div>
+                    <div class="title" style="cursor:pointer;" onclick="loadStausTransactions(1)">Purchase:</div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-2 col-sm-12 col-xs-12">
+                <div class="info-box lime-bg">
+                    <i class="fa fa-shopping-cart"></i>
+                    <div class="title" style="cursor:pointer;" onclick="loadStausTransactions(1)">Name:Water Dispenser</div>
+                    <div class="title" style="cursor:pointer;" onclick="loadStausTransactions(1)">Sales:</div>
+                    <div class="title" style="cursor:pointer;" onclick="loadStausTransactions(1)">Purchase:</div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-2 col-sm-12 col-xs-12">
+                <div class="info-box lime-bg">
+                    <i class="fa fa-shopping-cart"></i>
+                    <div class="title" style="cursor:pointer;" onclick="loadStausTransactions(1)">Name:Cooler</div>
+                    <div class="title" style="cursor:pointer;" onclick="loadStausTransactions(1)">Sales:</div>
+                    <div class="title" style="cursor:pointer;" onclick="loadStausTransactions(1)">Purchase:</div>
+                </div>
+            </div>*@
+    </div>
+</section>
+
+<div class="row mb" id="bindReports">
+
+</div>
+
+
+@section Scripts {
+
+    <script>
+
+        $(document).ready(function () {
+            DailyReport();
+            MonthlyReport();
+        });
+
+        function DailyReport() {
+            var model =
+            {
+                Intialized: 10,
+                Pending: 8,
+                Processing: 12,
+                Completed: 23,
+                Declined: 9
+            };
+            var dailyReport = {
+                Intialized: 5,
+                Pending: 6,
+                Processing: 7,
+                Completed: 8,
+                Declined: 7,
+                ReportId: 'DailyReport',
+                ReportTitle: 'Today Transactions,  2020',
+                ReportType: 'pie',
+                ReportName: 'DailyReport',
+                data: bindData(model)
+            }
+            HighChart(dailyReport);
+        }
+
+        function bindData(model) {
+            var Data = [{
+                name: 'Refrigirator',
+                y: model.Completed,
+                color: '#37ca54'
+                //sliced: true,
+                //selected: true
+            }, {
+                name: 'Cooler',
+                color: '#2f78dd',
+                y: model.Intialized
+            }, {
+                name: 'Air Condition',
+                color: '#2535a3',
+                y: model.Processing
+            }, {
+                name: 'Water Purifier',
+                color: '#ffbb4f',
+                y: model.Pending
+            }, {
+                name: 'Washing Machine',
+                color: '#fa4444',
+                y: model.Declined
+            }]
+            return Data;
+        }
+
+        function MonthlyReport() {
+            var model =
+            {
+                Intialized: 10,
+                Pending: 8,
+                Processing: 12,
+                Completed: 23,
+                Declined: 9
+            };
+            var montlyReport = {
+                Intialized: 10,
+                Pending: 8,
+                Processing: 12,
+                Completed: 23,
+                Declined: 9,
+                ReportId: 'MonthlyReport',
+                ReportTitle: 'Mothly Transactions,  2020',
+                ReportType: 'pie',
+                ReportName: 'MonthlyReport',
+                data: bindData(model)
+            }
+            HighChart(montlyReport);
+        }
+
+        function HighChart(model) {
+            var div = "<div class=" + 'col-lg-6' + "><figure class=" + 'highcharts-figure' + "><div id=" + model.ReportName + "></div><p class=" + 'highcharts-description"' + "></p></figure></div>"
+            $("#bindReports").append(div);
+
+            Highcharts.chart(model.ReportName, {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                //Enable or disable buttons
+                exporting: {
+                    buttons: {
+                        contextButton: {
+                            enabled: false
+                        }
+                    }
+                },
+                title: {
+                    text: model.ReportTitle
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.0f}%</b>'
+                },
+                //accessibility: {
+                //    point: {
+                //        valueSuffix: '%'
+                //    }
+                //},
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            //format: '<b>{point.name}</b>: {point.y:.1f} %'
+                            format: '<b>{point.name}</b>: {point.y:.0f}'
+                        }
+                    }
+                },
+                series: [
+                    {
+                        name: 'Transactions',
+                        colorByPoint: true,
+                        data: model.data
+                        //        [{
+                        //    name: 'Completed',
+                        //    y: model.Completed,
+                        //    color: '#37ca54'
+                        //    //sliced: true,
+                        //    //selected: true
+                        //}, {
+                        //    name: 'Intialized',
+                        //    color: '#2f78dd',
+                        //        y: model.Intialized
+                        //}, {
+                        //    name: 'Processing',
+                        //    color: '#2535a3',
+                        //    y: model.Processing
+                        //}, {
+                        //    name: 'Pending',
+                        //    color: '#ffbb4f',
+                        //    y: model.Pending
+                        //}, {
+                        //    name: 'Declined',
+                        //    color: '#fa4444',
+                        //    y: model.Declined
+                        //    }, {
+                        //        name: 'Completed',
+                        //        y: model.Completed,
+                        //        color: '#37ca54'
+                        //        //sliced: true,
+                        //        //selected: true
+                        //    }, {
+                        //        name: 'Intialized',
+                        //        color: '#2f78dd',
+                        //        y: model.Intialized
+                        //    }, {
+                        //        name: 'Processing',
+                        //        color: '#2535a3',
+                        //        y: model.Processing
+                        //    }, {
+                        //        name: 'Pending',
+                        //        color: '#ffbb4f',
+                        //        y: model.Pending
+                        //    }, {
+                        //        name: 'Declined',
+                        //        color: '#fa4444',
+                        //        y: model.Declined
+                        //    }]
+                    }]
+            });
+        }
+    </script>
+}
+
+
+

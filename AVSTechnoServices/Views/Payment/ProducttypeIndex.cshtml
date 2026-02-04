@@ -1,0 +1,82 @@
+﻿@model IEnumerable<AVSModels.Models.ProductTypes>
+@{
+    ViewBag.Title = "PaymnettypeIndex";
+    Layout = "~/Views/Shared/_CustomMainLayout.cshtml";
+}
+
+<section class="wrapper">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel-body">
+                <header>
+                    <a href="#" id="AddNewVendor" onclick="openProductTypes()" title="create new Vendor" class="btn btn-sm btn btn-primary"><span class="fa fa-plus-circle"></span> New ProductType &nbsp;</a>
+                </header>
+                <br />
+                <table class="table table-hover table-bordered" id="tdVendors">
+                    <thead class="thead">
+                        <tr>
+                            <th> ProductTypeID</th>
+                            <th>ProductType Name</th>
+                            <th>Product Discription</th>
+                            <th>CreatedOn</th>
+                            <th><i class=""></i>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @if (Model != null)
+                        {
+                            foreach (var item in Model)
+                            {
+                        <tr>
+                            <td>@item.ProductTypeId</td>
+                            <td>@item.ProductTypeName</td>
+                            <td>@item.ProductDescription</td>
+                            <td>@item.CreatedOn.ToShortDateString()</td>
+                            <td>
+
+                                <a class="btn btn-xs btn-primary" onclick="EditProductType(@item.ProductTypeId)" href="#"><i class="fa fa-pencil-square-o"></i></a>
+                                @*<a class="btn btn-xs btn-info" onclick="ViewVendor(@item.VendorID)" href="#"><i class="fa fa-eye"></i></a>*@
+                                <a class="btn btn-xs btn-danger" onclick="DeleteProductType(@item.ProductTypeId)" href="#"><i class="fa fa-trash-o"></i></a>
+
+                            </td>
+                        </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+</section>
+@section Scripts{
+    <script>
+        function openProductTypes() {
+            window.location.href = "/Payment/AddProducttypes";
+        }
+
+        function EditProductType(ProducttypeID) {
+            window.location.href = "/Payment/AddProducttypes?ProducttypeID=" + ProducttypeID;
+        }
+        function DeleteProductType(ProductTypeId) {
+
+            $.ajax({
+                async: false,
+                url: "/Payment/DeleteProductType",
+                type: "POST",
+                data: { ProductTypeId: ProductTypeId },
+                success: function (result) {
+                    if (result) {
+                        notification('success', 'ProductType Deleted Successfully');
+                        location.reload();
+                    }
+                    else {
+                        notification('warning', 'Failed to Delete ProductType');
+                    }
+                }
+            });
+        }
+    </script>
+}

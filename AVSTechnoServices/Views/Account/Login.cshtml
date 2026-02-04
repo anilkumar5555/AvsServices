@@ -1,0 +1,142 @@
+﻿@model AVSTechnoServices.Models.LoginModel
+@{ 
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AVSTechno Services - Voltas Store in Karimnagar">
+    <meta name="author" content="TechSowDevops">
+    @*<link rel="shortcut icon" href="img/favicon.png">*@
+
+    <title >AVS Techno</title>
+
+    <link href="~/Content/Nscripts/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Nscripts/css/bootstrap-theme.css" rel="stylesheet" />
+    <link href="~/Content/Nscripts/css/elegant-icons-style.css" rel="stylesheet" />
+    <link href="~/Content/Nscripts/css/font-awesome.css" rel="stylesheet" />
+    <link href="~/Content/Nscripts/css/style.css" rel="stylesheet" />
+    <link href="~/Content/Nscripts/css/style-responsive.css" rel="stylesheet" />
+    <style>
+        body {
+            font-size: 16px !important;
+            background: #fff !important;
+        }
+
+        .dark-bg {
+            color: #fff !important;
+            background: #0e3453 !important;
+            background-color: white!important;
+        }
+
+        .lite {
+            color: #ffffff !important;
+        }
+
+        .rad {
+            border-radius: 21px !important;
+        }
+
+        
+
+        .top-nav ul top-menu > li {
+            margin-right: 50px;
+            font-size: large;
+        }
+        body, html {
+            height: 100%;
+            margin: 0;
+        }
+
+        .bg {
+            /* The image used */
+            background-image: url("/Content/Nscripts/img/icons/Voltas2.jpg");
+            /* Full height */
+            height: 100%;
+            /* Center and scale the image nicely */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        #loginpage{
+            background-color:gainsboro!important;
+            background-image:none!important;
+        }
+
+        .loginbg {
+            /*background-color: #edf4fb !important;*/
+            /* opacity: 0; */
+            /*   background-image: none;*/
+            /*background-image: linear-gradient(to right, #596d8b, #32849f, #009b99, #4dac7c, #98b557) !important;*/
+            /*   background-image: linear-gradient(to right, #66b2cd, #6199c0, #657ead, #6b6493, #6d4a74) !important;*/
+            background-image: linear-gradient(to right, #96cbde, #95c1e2, #9fb5e1, #afa7d8, #c099c8);
+        }
+        .logo {
+           text-align:center!important;
+           
+            /*background: linear-gradient(to right, #30CFD0 0%, #330867 100%);*/
+            /* -webkit-background-clip: logo;*/
+            /*-webkit-text-fill-color: transparent;*/
+            /*margin-left: 590px;
+            background: linear-gradient(to right, #30CFD0 0%, #330867 100%);*/
+            /* -webkit-background-clip: logo;*/
+            /*-webkit-text-fill-color: transparent;*/
+            background: #B929CF;
+            background: -webkit-linear-gradient(to right, #B929CF 30%, #3A71CF 56%);
+            background: -moz-linear-gradient(to right, #B929CF 30%, #3A71CF 56%);
+            background: linear-gradient(to right, #B929CF 30%, #3A71CF 56%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+
+<body class=" ">
+    <div class="bg">
+
+        <header class="header dark-bg">
+
+            <!--logo start-->
+            <a href="/Account/Login" class="logo"><b>AVS TECHNO SERVICES</b></a>
+            <!--logo end-->
+        </header>
+        <div class="container">
+            <form class="login-form" id="loginpage" action="~/Account/Login" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="ReturnUrl" value="@ViewBag.ReturnUrl" />
+                <div class="login-wrap bg loginbg">
+                    <p class="login-img">
+                        @*<i class="icon_desktop"></i>*@
+                        @*<img src="~/Content/Nscripts/img/logo1.png" />*@
+                        <img src="~/Content/Nscripts/img/Voltas-Logo-PNG.png" style="width:160px;"/>
+                    </p>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="icon_profile"></i></span>
+                        @Html.EditorFor(model => model.username, new { htmlAttributes = new { @class = "form-control", @autofocus = "autofocus", @placeholder = "Username" } })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="icon_key_alt"></i></span>
+                        @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control", @placeholder = "Password", @type = "Password" } })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                    <label class="checkbox">
+
+                        <span class="pull-right"> <a href="/Account/ForgetPassword" style="color:white!important"> Forgot Password?</a></span>
+                    </label>
+                    <button class="btn btn-primary btn-lg btn-block rad" type="submit">Login</button>
+                </div>
+            </form>
+        </div>
+        </div>
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }
+    </body>
+
+</html>
+

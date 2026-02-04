@@ -1,0 +1,81 @@
+﻿@model IEnumerable<AVSModels.Models.PaymentModes>
+
+@{
+    ViewBag.Title = "PaymentmodeIndex";
+    Layout = "~/Views/Shared/_CustomMainLayout.cshtml";
+}
+
+<section class="wrapper">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel-body">
+                <header>
+                    <a href="#" id="AddNewVendor" onclick="openPaymentModes()" title="create new Vendor" class="btn btn-sm btn btn-primary"><span class="fa fa-plus-circle"></span> New PaymentMode &nbsp;</a>
+                </header>
+                <br />
+                <table class="table table-hover table-bordered" id="tdVendors">
+                    <thead class="thead">
+                        <tr>
+                            <th>PaymentModeID</th>
+                            <th>PaymentMode Name</th>
+                            <th>CreatedOn</th>
+                            <th><i class=""></i>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @if (Model != null)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.PaymentModeId</td>
+                                    <td>@item.PaymentModeName</td>
+                                    <td>@item.CreatedOn.ToShortDateString()</td>
+                                    <td>
+
+                                        <a class="btn btn-xs btn-primary" onclick="EditPaymentMode(@item.PaymentModeId)" href="#"><i class="fa fa-pencil-square-o"></i></a>
+                                        @*<a class="btn btn-xs btn-info" onclick="ViewVendor(@item.VendorID)" href="#"><i class="fa fa-eye"></i></a>*@
+                                        <a class="btn btn-xs btn-danger" onclick="DeletePaymentMode(@item.PaymentModeId)" href="#"><i class="fa fa-trash-o"></i></a>
+
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+</section>
+@section Scripts{
+    <script>
+        function openPaymentModes() {
+            window.location.href = "/Payment/AddPaymentmodes";
+        }
+
+        function EditPaymentMode(PaymentModeID) {
+            window.location.href = "/Payment/AddPaymentmodes?PaymentModeID=" + PaymentModeID;
+        }
+        function DeletePaymentMode(PaymentModeId) {
+
+            $.ajax({
+                async: false,
+                url: "/Payment/DeletePaymentMode",
+                type: "POST",
+                data: { PaymentModeId: PaymentModeId },
+                success: function (result) {
+                    if (result) {
+                        notification('success', 'PaymentMode Deleted Successfully');
+                        location.reload();
+                    }
+                    else {
+                        notification('warning', 'Failed to Delete PaymentMode');
+                    }
+                }
+            });
+        }
+    </script>
+}

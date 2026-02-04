@@ -1,0 +1,56 @@
+﻿@model IEnumerable<AVSModels.Models.ProductModel>
+
+<div class="panel">
+
+    <div class="panel-heading">
+        @*<div class="panel-title">Products</div>*@
+        <a class="btn btn-sm btn-primary pull-right" style="margin-top: 2px !important;" title="Add new customer transaction" href="#" onclick="loadProduct(0,'@Model.FirstOrDefault().MaterialId')">New Transaction</a>
+    </div>
+    <div class="panel-body">
+
+        <table class="table table-hover table-bordered" id="tdVendors">
+            <thead class="thead">
+                <tr>
+                    <th> Product </th>
+                    <th> Model</th>
+                    <th>Qty</th>
+                    <th> Unit Price</th>
+                    <th>TotalTax</th>
+                    <th>Total Balance</th>
+                    <th>Created On</th>
+                    <th><i class=""></i>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @if (Model != null)
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.ProductTypeName</td>
+                            <td>@item.ModelName</td>
+                            <td>@item.Qty</td>
+                            <td>@item.UnitPrice</td>
+                            <td>@item.TotalTax</td>
+                            <td>@item.TotalBalance</td>
+                            <td>@item.CreatedOn.Value.ToShortDateString()</td>
+                            <td>
+                                <a class="btn btn-xs btn-primary" onclick="loadProduct('@item.ProductModelId','@item.MaterialId')" href="#"><i class="fa fa-pencil-square-o"></i></a>
+                                <a class="btn btn-xs btn-danger" onclick="DeleteProduct('@item.ProductModelId','@item.MaterialId')" href="#"><i class="fa fa-trash-o"></i></a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+
+</div>
+
+
+
+
+
+

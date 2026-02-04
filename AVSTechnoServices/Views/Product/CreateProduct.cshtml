@@ -1,0 +1,205 @@
+﻿@model AVSModels.Models.ProductModel
+    <style>
+        .panel-heading {
+           color:darkblue!important;
+      
+        }
+       .panel.body{
+           border-bottom-color:darkblue!important;
+       }
+    </style>
+    <div class="panel">
+        <div class="panel-heading">
+            @if (Model.MaterialId != 0)
+            {
+                <span>Update Product</span>
+            }
+            else
+            {
+                <span><b>New Product</b></span>
+            }
+        </div>
+        <div class="panel-body">
+            <div class="row btm">
+                <div class="col-md-12">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.HiddenFor(m => m.ProductModelId)
+                            @Html.HiddenFor(m => m.SerialNoId)
+                            @Html.Label("ProductType", htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.DropDownListFor(model => model.ProductTypeId, new SelectList(ViewBag.productTypes, "value", "text"), "-- Select--", new { @class = "form-control", @onchange = "getmodelsbyProductType()" })
+                                @Html.ValidationMessageFor(model => model.ProductTypeId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.Label("Model Name", htmlAttributes: new { @class = "control-label labelcss col-md-4", @style = "padding-left:2px!important;" })
+                            <div class="col-md-8">
+                                <div id="bindProductModel">
+                                    @if (Model.ProductTypeId != 0 && Model.ModelId != 0)
+                                    {
+                                        @Html.DropDownListFor(model => model.ModelId, new SelectList(ViewBag.modelTypes, "value", "text"), "-- Select--", new { @class = "form-control ModelId", @onchange = "BindProductModelInfo()" })
+                                        <a onclick="BindProductModelInput()" style="cursor:pointer;">click for new</a>
+                                    }
+                                    else
+                                    {
+                                        @*@Html.HiddenFor(m => m.ModelId)*@
+                                        @Html.EditorFor(model => model.ModelName, new { htmlAttributes = new { @class = "form-control" } })
+                                    }
+                                </div>
+                                @Html.ValidationMessageFor(model => model.ModelName, "", new { @class = "text-danger",@id= "Error_ModelName" })
+                            </div>
+                          
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Capacity, htmlAttributes: new { @class = "control-label labelcss col-md-4" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.Capacity, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Capacity, "", new { @class = "text-danger", @id = "Error_Capacity" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.HSNCode, htmlAttributes: new { @class = "control-label labelcss col-md-4" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.HSNCode, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.HSNCode, "", new { @class = "text-danger", @id = "Error_HSNCode" })
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="row btm">
+                <div class="col-md-12">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Qty, htmlAttributes: new { @class = "control-label labelcss col-md-4" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.Qty, new { htmlAttributes = new { @class = "form-control", @onchange = "MaterialCalculations()" } })
+                                @Html.ValidationMessageFor(model => model.Qty, "", new { @class = "text-danger",@id= "Error_Qty" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.UnitPrice, htmlAttributes: new { @class = "control-label labelcss col-md-4" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.UnitPrice, new { htmlAttributes = new { @class = "form-control", @onkeypress = "Allowdigits(event, this)", @onfocus = "AmountfocusIdx('UnitPrice')", @onblur = "AmountformatIdx('UnitPrice')", @onchange = "MaterialCalculations()" } })
+                                @Html.ValidationMessageFor(model => model.UnitPrice, "", new { @class = "text-danger",@id= "Error_UnitPrice" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.Label("Tax(%)", htmlAttributes: new { @class = "control-label labelcss col-md-4" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.TotalTaxPercent, new { htmlAttributes = new { @class = "form-control", @onkeypress = "Allowdigits(event, this)", @onfocus = "AmountfocusIdx('TotalTaxPercent')", @onblur = "AmountformatIdx('TotalTaxPercent')", @onchange = "MaterialCalculations()" } })
+                                @Html.ValidationMessageFor(model => model.TotalTaxPercent, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label labelcss col-md-4" for="IGST">IGST &nbsp; <span class="IgstLabel"></span></label>
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.IGST, new { htmlAttributes = new { @class = "form-control", @onkeypress = "Allowdigits(event, this)", @onfocus = "AmountfocusIdx('IGST')", @onblur = "AmountformatIdx('IGST')", @onchange = "MaterialCalculations()" } })
+                                @Html.ValidationMessageFor(model => model.IGST, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row btm">
+                <div class="col-md-12">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label labelcss col-md-4" for="CGST">CGST &nbsp; <span class="gstLabel">(@Model.taxPercent%)</span></label>
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.CGST, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @onkeypress = "Allowdigits(event, this)", @onfocus = "AmountfocusIdx('CGST')", @onblur = "AmountformatIdx('CGST')" } })
+                                @Html.ValidationMessageFor(model => model.CGST, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label labelcss col-md-4" for="SGST">SGST &nbsp; <span class="gstLabel">(@Model.taxPercent%)</span></label>
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.SGST, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @onkeypress = "Allowdigits(event, this)", @onfocus = "AmountfocusIdx('SGST')", @onblur = "AmountformatIdx('SGST')" } })
+                                @Html.ValidationMessageFor(model => model.SGST, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.TotalTax, htmlAttributes: new { @class = "control-label labelcss col-md-4" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.TotalTax, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @onkeypress = "Allowdigits(event, this)", @onfocus = "AmountfocusIdx('TotalTax')", @onblur = "AmountformatIdx('TotalTax')", } })
+                                @Html.ValidationMessageFor(model => model.TotalTax, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.TotalBalance, htmlAttributes: new { @class = "control-label labelcss col-md-4", @style = "padding-left:2px!important;" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.TotalBalance, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @onkeypress = "Allowdigits(event, this)", @onfocus = "AmountfocusIdx('TotalBalance')", @onblur = "AmountformatIdx('TotalBalance')", } })
+                                @Html.ValidationMessageFor(model => model.TotalBalance, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="row btm">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.Label("Serial No1", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.TextAreaFor(model => model.SerialNumber, new { @class = "form-control" } )
+                            @Html.ValidationMessageFor(model => model.SerialNumber, "", new { @class = "text-danger", @id = "Error_SerialNumber" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.Label("Serial No2", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.TextAreaFor(model => model.ACSerialNumber, new { @class = "form-control" } )
+                            @Html.ValidationMessageFor(model => model.ACSerialNumber, "", new { @class = "text-danger", @id = "Error_ACSerialNumber" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row btm">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <div class="col-md-10"></div>
+                        <div class="col-md-2">
+                            @if (Model.ProductModelId != 0)
+                            {
+                                <input type="button" value="Update" onclick="SaveProduct()" class="btn btn-success pull-right" />
+                            }
+                            else if (Model.MaterialId != 0)
+                            {
+                                <input type="button" value="Create" onclick="SaveProduct()" class="btn btn-primary pull-right" />
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+</div>

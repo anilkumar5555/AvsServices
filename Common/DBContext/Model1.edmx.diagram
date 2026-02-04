@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e6cae75e73ca4ecea6681ffff1f8a0c5" Name="Diagram1" ZoomLevel="44">
+        <EntityTypeShape EntityType="AVSTechnoModel.TS_CustomerProductTransaction" Width="1.5" PointX="9.75" PointY="23" IsExpanded="true" />
+        <EntityTypeShape EntityType="AVSTechnoModel.TS_Customers" Width="1.5" PointX="5.25" PointY="16.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AVSTechnoModel.TS_ModelSerialNos" Width="1.5" PointX="15" PointY="21.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AVSTechnoModel.TS_PaymentModes" Width="1.5" PointX="5.25" PointY="27.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AVSTechnoModel.TS_PaymentTypes" Width="1.5" PointX="5.25" PointY="31.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AVSTechnoModel.TS_ProductModels" Width="1.5" PointX="12.75" PointY="26" IsExpanded="true" />
+        <EntityTypeShape EntityType="AVSTechnoModel.TS_ProductTypes" Width="1.5" PointX="5.25" PointY="35.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AVSTechnoModel.TS_Roles" Width="1.5" PointX="0.75" PointY="18.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AVSTechnoModel.TS_Users" Width="1.5" PointX="3" PointY="15.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AVSTechnoModel.TS_Vendors" Width="1.5" PointX="5.25" PointY="39.125" IsExpanded="true" />
+        <AssociationConnector Association="AVSTechnoModel.fk_TS_CustomerProductTransaction_CreatedBy_TS_Users_UserID" ManuallyRouted="false" />
+        <AssociationConnector Association="AVSTechnoModel.fk_TS_CustomerProductTransaction_PaymentTypeId_TS_PaymentTypes_PaymentTypeId" ManuallyRouted="false" />
+        <AssociationConnector Association="AVSTechnoModel.fk_TS_CustomerProductTransaction_UpdatedBy_TS_Users_UserID" ManuallyRouted="false" />
+        <AssociationConnector Association="AVSTechnoModel.fk_TS_Customers_CreatedBy_TS_Users_UserID" ManuallyRouted="false" />
+        <AssociationConnector Association="AVSTechnoModel.fk_TS_Customers_UpdatedBy_TS_Users_UserID" ManuallyRouted="false" />
+        <AssociationConnector Association="AVSTechnoModel.fk_TS_ModelSerialNos_CreatedBy_TS_Users_UserID" ManuallyRouted="false" />
+        <AssociationConnector Association="AVSTechnoModel.fk_TS_ModelSerialNos_ModelId_TS_ProductModels_ModelID" ManuallyRouted="false" />
+        <AssociationConnector Association="AVSTechnoModel.fk_TS_ModelSerialNos_UpdatedBy_TS_Users_UserID" ManuallyRouted="false" />
+        <AssociationConnector Association="AVSTechnoModel.fk_TS_PaymentModes_CreatedBy_TS_Users_UserID" ManuallyRouted="false" />
+        <AssociationConnector Association="AVSTechnoModel.fk_TS_PaymentModes_UpdatedBy_TS_Users_UserID" ManuallyRouted="false" />
+        <AssociationConnector Association="AVSTechnoModel.fk_TS_PaymentTypes_CreatedBy_TS_Users_UserID" ManuallyRouted="false" />
+        <AssociationConnector Association="AVSTechnoModel.fk_TS_PaymentTypes_UpdatedBy_TS_Users_UserID" ManuallyRouted="false" />
+        <AssociationConnector Association="AVSTechnoModel.fk_TS_ProductModels_CreatedBy_TS_Users_UserID" ManuallyRouted="false" />
+        <AssociationConnector Association="AVSTechnoModel.fk_TS_ProductModels_ProductTypeId_TS_ProductTypes_ProductTypeId" ManuallyRouted="false" />
+        <AssociationConnector Association="AVSTechnoModel.fk_TS_ProductModels_UpdatedBy_TS_Users_UserID" ManuallyRouted="false" />
+        <AssociationConnector Association="AVSTechnoModel.fk_TS_ProductTypes_CreatedBy_TS_Users_UserID" ManuallyRouted="false" />
+        <AssociationConnector Association="AVSTechnoModel.fk_TS_ProductTypes_UpdatedBy_TS_Users_UserID" ManuallyRouted="false" />
+        <AssociationConnector Association="AVSTechnoModel.fk_TS_Users_RoleID_TS_Roles_RoleID" ManuallyRouted="false" />
+        <AssociationConnector Association="AVSTechnoModel.fk_TS_Vendors_CreatedBy_TS_Users_UserID" ManuallyRouted="false" />
+        <AssociationConnector Association="AVSTechnoModel.fk_TS_Vendors_UpdatedBy_TS_Users_UserID" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="AVSTechnoModel.TS_Model_SerialNos" Width="1.5" PointX="12.75" PointY="21.375" />
+        <EntityTypeShape EntityType="AVSTechnoModel.TS_Models" Width="1.5" PointX="10.5" PointY="27.875" />
+        <AssociationConnector Association="AVSTechnoModel.fk_TS_Model_SerialNos_CreatedBy_TS_Users_UserID" />
+        <AssociationConnector Association="AVSTechnoModel.fk_TS_Model_SerialNos_ProductTypeId_TS_Models_ProductModelId" />
+        <AssociationConnector Association="AVSTechnoModel.fk_TS_Model_SerialNos_UpdatedBy_TS_Users_UserID" />
+        <AssociationConnector Association="AVSTechnoModel.fk_TS_Models_CreatedBy_TS_Users_UserID" />
+        <AssociationConnector Association="AVSTechnoModel.fk_TS_Models_ProductTypeId_TS_ProductTypes_ProductTypeId" />
+        <AssociationConnector Association="AVSTechnoModel.fk_TS_Models_UpdatedBy_TS_Users_UserID" />
+        <EntityTypeShape EntityType="AVSTechnoModel.TS_CustomerProducts" Width="1.5" PointX="15.75" PointY="26.875" />
+        <AssociationConnector Association="AVSTechnoModel.fk_TS_CustomerProducts_CreatedBy_TS_Users_UserID" />
+        <AssociationConnector Association="AVSTechnoModel.fk_TS_CustomerProducts_CustomerID_TS_Customers_CId" />
+        <AssociationConnector Association="AVSTechnoModel.fk_TS_CustomerProducts_PaymentModeId_TS_PaymentModes_PaymentModeId" />
+        <AssociationConnector Association="AVSTechnoModel.fk_TS_CustomerProducts_PaymentTypeId_TS_PaymentTypes_PaymentTypeId" />
+        <AssociationConnector Association="AVSTechnoModel.fk_TS_CustomerProducts_ProductModelId_TS_Models_ProductModelId" />
+        <AssociationConnector Association="AVSTechnoModel.fk_TS_CustomerProducts_UpdatedBy_TS_Users_UserID" />
+        <AssociationConnector Association="AVSTechnoModel.fk_TS_CustomerProductTransaction_CProductID_TS_CustomerProducts_SerialID" />
+        <AssociationConnector Association="AVSTechnoModel.fk_TS_ProductModels_ProductModelId_TS_Models_ProductModelId" />
+        <EntityTypeShape EntityType="AVSTechnoModel.TS_Materials" Width="1.5" PointX="7.5" PointY="26.375" />
+        <AssociationConnector Association="AVSTechnoModel.fk_TS_Materials_CreatedBy_TS_Users_UserID" />
+        <AssociationConnector Association="AVSTechnoModel.fk_TS_Materials_UpdatedBy_TS_Users_UserID" />
+        <AssociationConnector Association="AVSTechnoModel.fk_TS_Materials_VendorId_TS_Vendors_VendorID" />
+        <AssociationConnector Association="AVSTechnoModel.fk_TS_ProductModels_ProductTypeId_TS_Materials_MaterialID" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,12 @@
+G:\Project\AVSTech\AVSModels\bin\Debug\AVSModels.dll
+G:\Project\AVSTech\AVSModels\bin\Debug\AVSModels.pdb
+G:\Project\AVSTech\AVSModels\obj\Debug\AVSModels.csproj.CoreCompileInputs.cache
+G:\Project\AVSTech\AVSModels\obj\Debug\AVSModels.dll
+G:\Project\AVSTech\AVSModels\obj\Debug\AVSModels.pdb
+G:\Project\AVSTech\AVSModels\obj\Debug\AVSModels.csprojAssemblyReference.cache
+E:\Project\AVSTech\AVSModels\bin\Debug\AVSModels.dll
+E:\Project\AVSTech\AVSModels\bin\Debug\AVSModels.pdb
+E:\Project\AVSTech\AVSModels\obj\Debug\AVSModels.csproj.AssemblyReference.cache
+E:\Project\AVSTech\AVSModels\obj\Debug\AVSModels.csproj.CoreCompileInputs.cache
+E:\Project\AVSTech\AVSModels\obj\Debug\AVSModels.dll
+E:\Project\AVSTech\AVSModels\obj\Debug\AVSModels.pdb

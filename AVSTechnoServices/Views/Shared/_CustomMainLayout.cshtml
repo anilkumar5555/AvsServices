@@ -1,0 +1,375 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/nsadmincss")
+    @Styles.Render("~/Content/highchartCss")
+    @*@Styles.Render("~/Content/customCss")*@
+    <link href="~/Content/Customerloader.css" rel="stylesheet" />
+    @*<link href="~/Content/Custom.css" rel="stylesheet" />*@
+<style>
+
+    .header {
+        background-color: #f5f5f5 !important;
+        color: black !important;
+        border-bottom: 3px solid darkblue !important;
+    }
+
+    .logo {
+        color: #2f80bb !important;
+    }
+
+    ul.sidebar-menu li a {
+        color:black;
+    }
+
+    ul.sidebar-menu li ul li a {
+        color: black !important;
+        background-color: #e8e5e5;
+    }
+
+    .lite {
+        color: #2f80bb !important;
+    }
+
+    a.logo {
+        font-weight: 500 !important;
+    }
+
+    #sidebar {
+        background-color:#f5f5f5;
+       
+    }
+
+    .modal-header {
+        text-shadow: none !important;
+        font-weight: normal !important;
+        border-top: none !important;
+        background-color: white !important;
+        color: black !important;
+    }
+
+    .close {
+        color: #ccb0b0 !important;
+        text-shadow: none !important;
+        opacity: 1.0 !important;
+    }
+
+    ul.sidebar-menu li.active a, ul.sidebar-menu li a:hover, ul.sidebar-menu li a:focus {
+        background: darkblue !important;
+        color: #fff !important;
+    }
+
+    .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        /*background-color: red;*/
+        color: white;
+        text-align: center;
+        min-height: 10px !important;
+        padding: -1px 15px;
+    }
+
+    .ui-widget-content {
+        background: #fff !important;
+        border: none !important;
+        border-radius: 15px !important;
+        -webkit-border-radius: 0px !important;
+        min-height: 50px !important;
+        max-height: 200px !important;
+        overflow-y: scroll;
+    }
+
+    ul.sidebar-menu li a {
+        border-right: none !important;
+        border-bottom: none !important;
+    }
+
+    .top-nav .username {
+        color: #1920ff !important;
+    }
+
+
+
+    .panel .panel-body {
+        border-bottom-color: darkblue !important;
+    }
+
+    .labelcss {
+        color: black !important;
+        font-weight: 500 !important;
+    }
+
+
+    .panel-heading {
+        min-height: 40px !important;
+    }
+    hr {
+         margin-top: 0px !important; 
+         margin-bottom: 0px !important; 
+    }
+   
+    </style>
+</head>
+<body>
+    <!-- container section start -->
+    <section id="container" class="">
+
+
+        <header class="header dark-bg" style="height:20px">
+            <div class="toggle-nav">
+                <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"><i class="icon_menu"></i></div>
+            </div>
+
+
+            @*<a href="/Manager/Index" class="logo"> <b>AVS TECHNO</b></a>*@
+        <a href="/Home/Index" class="logo">AVS &nbsp;<span class="lite">TECHNO SERVICES</span> </a>
+          
+            <!--logo end-->
+
+            <div class="top-nav notification-row" >
+                <!-- notificatoin dropdown start-->
+                <ul class="nav pull-right top-menu">
+                    <!-- user login dropdown start-->
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="profile-ava">
+                             
+                                    <i class="fa fa-user" style="color:black!important;"></i>
+                                    
+                            </span>
+                            <span class="username">@User.Identity.Name</span>
+                            <b class="caret"></b>
+                           
+                        </a>
+
+                        <ul class="dropdown-menu extended logout">
+                            <li class="eborder-top">
+                                <a href="#" id="Profile"><i class="icon_profile"></i> My Profile</a>
+                            </li>
+                            <li>
+                                <a href="#"  onclick="ChangePassword()"><i class="icon_key_alt"></i>ChangePassword</a>
+                            </li>
+                            <li>
+                                <a href="/Account/Logout"><i class="fa fa-sign-out"></i> Log Out</a>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <!-- user login dropdown end -->
+                </ul>
+                <!-- notificatoin dropdown end-->
+            </div>
+           
+        </header>
+
+        <!--sidebar start-->
+        <aside>
+            <div id="sidebar" class="nav-collapse ">
+                <!-- sidebar menu start-->
+                <ul class="sidebar-menu">
+                    <li class="active">
+                        <a class="" href="/Home/Index" id="Dashboard">
+                            <i class="icon_house_alt"></i>
+                            <span>Dashboard </span>
+                        </a>
+                    </li>
+                    <li class="sub-menu">
+                        <a href="javascript:;" class="">
+                            <i class="icon_desktop"></i>
+                            <span>Admin</span>
+                            <span class="menu-arrow arrow_carrot-right"></span>
+                        </a>
+                        <ul class="sub">
+                            <li>@Html.ActionLink("Vendors", "Index", "Vendor")</li>
+                            <li>@Html.ActionLink("Product Types", "ProducttypeIndex", "Payment")</li>
+                            <li>@Html.ActionLink("Payment Types", "PaymnettypeIndex", "Payment")</li>
+                            <li>@Html.ActionLink("Payment Modes", "PaymentmodeIndex", "Payment")</li>
+                            <li>@Html.ActionLink("Employees", "Index", "User")</li>
+                        </ul>
+                    </li>
+                    <li class="sub-menu">
+                        <a href="javascript:;" class="">
+                            <i class="icon_desktop"></i>
+                            <span>Invoice</span>
+                            <span class="menu-arrow arrow_carrot-right"></span>
+                        </a>
+                        <ul class="sub">
+                            <li>@Html.ActionLink("Invoices", "Materials", "Product")</li>
+                        </ul>
+                    </li>
+
+                    <li class="sub-menu">
+                        <a href="javascript:;" class="">
+                            <i class="fa fa-bar-chart-o"></i>
+                            <span>Stock</span>
+                            <span class="menu-arrow arrow_carrot-right"></span>
+                        </a>
+                        <ul class="sub">
+                            <li>@Html.ActionLink("Product Stock", "Reports", "Customer")</li>
+                            <li>@Html.ActionLink("Sales Stock", "Reports", "Customer")</li>
+                        </ul>
+                    </li>
+
+                    <li class="sub-menu">
+                        <a href="javascript:;" class="">
+                            <i class="glyphicon glyphicon-user"></i>
+                            <span>Customer</span>
+                            <span class="menu-arrow arrow_carrot-right"></span>
+                        </a>
+                        <ul class="sub">
+                            <li>@Html.ActionLink("New Customer", "Customer", "Customer")</li>
+                            <li>@Html.ActionLink("Customers", "Index", "Customer")</li>
+                        </ul>
+                    </li>
+
+                    <li class="sub-menu">
+                        <a href="javascript:;" class="">
+                            <i class="glyphicon glyphicon-stats"></i>
+                            <span>Reports</span>
+                            <span class="menu-arrow arrow_carrot-right"></span>
+                        </a>
+                        <ul class="sub">
+                            <li>@Html.ActionLink("Stocks", "StockReport", "Report")</li>
+                            <li>@Html.ActionLink("Sales", "Index", "Report")</li>
+                            <li>@Html.ActionLink("Purchase", "Index", "Report")</li>
+                            <li>@Html.ActionLink("Audit", "Index", "Report")</li>
+                        </ul>
+                    </li>
+                </ul>
+                <!-- sidebar menu end-->
+            </div>
+        </aside>
+        <!--sidebar end-->
+        <!--main content start-->
+        <section id="main-content">
+            <div id="renderformpage">
+                @RenderBody()
+            </div>
+            <div class="row">
+                <div class="footer bg-light text-center text-lg-start">
+                    <!-- Copyright -->
+                    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+                        © 2020 Copyright:
+                        <a class="text-dark" target="_blank" href="http://techsowdevelopers.co.in/">TechSowDevelopers</a>
+                    </div>
+                    <!-- Copyright -->
+                </div>
+            </div>
+        </section>
+
+
+       
+        <!--header end-->
+    </section>
+    <!-- container section start -->
+    <!-- javascripts -->
+
+    @Scripts.Render("~/bundles/nsadminjs")
+    @Scripts.Render("~/bundles/highchartjs")
+    @Scripts.Render("~/bundles/Notificationsjs")
+    @Scripts.Render("~/bundles/customjs")
+    @RenderSection("scripts", required: false)
+    <script>
+
+        //$(document).ready(function () {
+        //    loadNotifications();
+        //});
+
+        //$('#SearchSubmit').keypress(function (e) {
+        //    var key = e.which;
+        //    if (key == 13)  // the enter key code
+        //    {
+        //        loadNewCustomerpage();
+        //    }
+        //});
+
+        //function loadNewCustomerpage(customerId = 0) {
+        //    window.location.href = "/Customer/CustomerView?custmerId=" + customerId;
+        //};
+
+        //$(function () {
+        //    $("#SearchSubmit").autocomplete({
+        //        source: function (request, response) {
+        //            $.ajax({
+        //                type: "POST",
+        //                url: "/Manager/SearchCustomer",
+        //                dataType: "json",
+        //                data: { name: $("#SearchSubmit").val() },
+        //                success: function (data) {
+        //                    response($.map(data, function (item) {
+        //                        return {
+        //                            label: item.name, value: item.name
+        //                        };
+        //                    }));
+        //                }
+        //            });
+        //        },
+        //        minLength: 3,
+        //        select: function (event, ui) {
+        //            $("#SearchSubmit").text(ui.item.label);
+        //            SearchCustomer(ui.item.label);
+        //        }
+        //    });
+        //});
+
+        //function SearchCustomer(serachText) {
+        //    FindCustomer(0, serachText);
+        //}
+
+
+        //function FindCustomer(customerId = 0, searchText = null) {
+        //    window.location.href = "/Customer/CustomerInfomation?customerId=" + customerId + "&searchText=" + searchText;
+        //}
+
+        //function loadNotifications() {
+        //    createLoaderOnTopOfElement("alert_notificatoin_bar");
+        //    $.ajax({
+        //        async: false,
+        //        url: "/Manager/Notifications",
+        //        type: "GET",
+        //        //data: { userId: userId },
+        //    }).done(function (data) {
+        //        $("#alert_notificatoin_bar").html(data);
+        //        removeLoaderFromElement("alert_notificatoin_bar");
+        //    });
+        //}
+
+        $("#Profile").click(function (evt) {
+            loadUserProfile()
+
+        });
+        function ChangePassword() {
+            createLoaderOnTopOfElement("renderformpage");
+            $.ajax({
+                async: false,
+                url: "/User/ChangePassword",
+                type: "GET",
+            }).done(function (data) {
+                $("#renderformpage").html(data);
+                removeLoaderFromElement("renderformpage");
+            });
+        }
+        //function ChangePassword(userid) {
+        //    window.location.href = "User/ChangePassword/userid="+ userid;
+        //}
+
+        function loadUserProfile( ) {
+            debugger;
+            createLoaderOnTopOfElement("renderformpage");
+            $.ajax({
+                async: false,
+                url: "/User/GetUser",
+                type: "GET",
+                //data: { userID:userid}
+            }).done(function (data) {
+                $("#renderformpage").html(data);
+                removeLoaderFromElement("renderformpage");
+            });
+        }
+    </script>
+</body>
+</html>

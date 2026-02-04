@@ -1,0 +1,895 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AVSTechnoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="TS_CustomerProducts">
+    <Key>
+      <PropertyRef Name="CProductID" />
+    </Key>
+    <Property Name="CProductID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CustomerID" Type="int" />
+    <Property Name="Qty" Type="int" />
+    <Property Name="UnitPrice" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="CGST" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="SGST" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="IGST" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="SellPrice" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="NetTotal" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Discount" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="GrossTotal" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="PaymentTypeId" Type="int" />
+    <Property Name="PaymentModeId" Type="int" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdateOn" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="SerialNo" Type="nvarchar" MaxLength="40" />
+    <Property Name="ACSerialNo" Type="nvarchar" MaxLength="40" />
+    <Property Name="ProductModelId" Type="int" />
+    <Property Name="PendingAmount" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="PaidAmount" Type="decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="TS_CustomerProductTransaction">
+    <Key>
+      <PropertyRef Name="CPTransactionID" />
+    </Key>
+    <Property Name="CPTransactionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CProductID" Type="int" />
+    <Property Name="NewPayment" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="TotalAmount" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="PaidAmount" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="RemainingAmount" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="PaymentTypeId" Type="int" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdateOn" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+  </EntityType>
+  <EntityType Name="TS_Customers">
+    <Key>
+      <PropertyRef Name="CId" />
+    </Key>
+    <Property Name="CId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CName" Type="nvarchar" MaxLength="100" />
+    <Property Name="CZipCode" Type="nvarchar" MaxLength="20" />
+    <Property Name="CPhoneNumber" Type="nvarchar" MaxLength="20" />
+    <Property Name="CEmail" Type="nvarchar" MaxLength="150" />
+    <Property Name="CAddress" Type="nvarchar" MaxLength="400" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdateOn" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="CGSTIN" Type="nvarchar" MaxLength="50" />
+    <Property Name="CStateCode" Type="nvarchar" MaxLength="20" />
+    <Property Name="SName" Type="nvarchar" MaxLength="100" />
+    <Property Name="SAddress" Type="nvarchar" MaxLength="500" />
+    <Property Name="SPhoneNumber" Type="nvarchar" MaxLength="50" />
+    <Property Name="SGSTIN" Type="nvarchar" MaxLength="50" />
+    <Property Name="SStateCode" Type="nvarchar" MaxLength="20" />
+    <Property Name="CState" Type="nvarchar" MaxLength="30" />
+    <Property Name="SState" Type="nvarchar" MaxLength="30" />
+    <Property Name="SEmail" Type="nvarchar" MaxLength="255" />
+    <Property Name="IsSameAs" Type="bit" />
+  </EntityType>
+  <EntityType Name="TS_Materials">
+    <Key>
+      <PropertyRef Name="MaterialID" />
+    </Key>
+    <Property Name="MaterialID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="VendorId" Type="int" />
+    <Property Name="MaterialNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="MaterialName" Type="nvarchar" MaxLength="100" />
+    <Property Name="InvoiceNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="ShippingDate" Type="datetime" />
+    <Property Name="ReceivedDate" Type="datetime" />
+    <Property Name="MaterialDescription" Type="nvarchar" MaxLength="180" />
+    <Property Name="Qty" Type="int" />
+    <Property Name="CGST" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="SGST" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="IGST" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="UnitPrice" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="TotalTax" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Total" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="TotalBalance" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdateOn" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+  </EntityType>
+  <EntityType Name="TS_Model_SerialNos">
+    <Key>
+      <PropertyRef Name="ModelSerilaNoId" />
+    </Key>
+    <Property Name="ModelSerilaNoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProductModelId" Type="int" />
+    <Property Name="SerialNo" Type="nvarchar(max)" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdateOn" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+  </EntityType>
+  <EntityType Name="TS_Models">
+    <Key>
+      <PropertyRef Name="ProductModelId" />
+    </Key>
+    <Property Name="ProductModelId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProductTypeId" Type="int" />
+    <Property Name="UnitPrice" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="TotalUnits" Type="int" />
+    <Property Name="CGST" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="SGST" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="IGST" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="TotalTax" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="TotalCost" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdateOn" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="ModelName" Type="nvarchar" MaxLength="100" />
+    <Property Name="IsIGST" Type="bit" />
+    <Property Name="TaxPercent" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="HSNCode" Type="nvarchar" MaxLength="100" />
+    <Property Name="SerialNo" Type="nvarchar(max)" />
+    <Property Name="ACSerialNo" Type="nvarchar(max)" />
+    <Property Name="Capacity" Type="nvarchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="TS_ModelSerialNos">
+    <Key>
+      <PropertyRef Name="SerialID" />
+    </Key>
+    <Property Name="SerialID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ModelId" Type="int" />
+    <Property Name="SerialNubmers" Type="nvarchar" MaxLength="400" />
+    <Property Name="HSNCode" Type="nvarchar" MaxLength="200" />
+    <Property Name="Capacity" Type="nvarchar" MaxLength="100" />
+    <Property Name="Weight" Type="int" />
+    <Property Name="Color" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdateOn" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="ACSerialNumbers" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="TS_PaymentModes">
+    <Key>
+      <PropertyRef Name="PaymentModeId" />
+    </Key>
+    <Property Name="PaymentModeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PaymentModeName" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdateOn" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+  </EntityType>
+  <EntityType Name="TS_PaymentTypes">
+    <Key>
+      <PropertyRef Name="PaymentTypeId" />
+    </Key>
+    <Property Name="PaymentTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PaymentTypeName" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdateOn" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+  </EntityType>
+  <EntityType Name="TS_ProductModels">
+    <Key>
+      <PropertyRef Name="ModelID" />
+    </Key>
+    <Property Name="ModelID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProductTypeId" Type="int" />
+    <Property Name="MaterialID" Type="int" />
+    <Property Name="MName" Type="nvarchar" MaxLength="200" />
+    <Property Name="MDescription" Type="nvarchar" MaxLength="300" />
+    <Property Name="Mcapacity" Type="nvarchar" MaxLength="200" />
+    <Property Name="MQty" Type="int" />
+    <Property Name="MUnitPrice" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="MCGST" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="MSGST" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="MIGST" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="MTotalPrice" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="MTaxTotal" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="MGrossAmount" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="MSrCode" Type="nvarchar" MaxLength="100" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdateOn" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="ProductModelId" Type="int" />
+  </EntityType>
+  <EntityType Name="TS_ProductTypes">
+    <Key>
+      <PropertyRef Name="ProductTypeId" />
+    </Key>
+    <Property Name="ProductTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProductTypeName" Type="nvarchar" MaxLength="100" />
+    <Property Name="ProductDescription" Type="nvarchar" MaxLength="200" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdateOn" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+  </EntityType>
+  <EntityType Name="TS_Roles">
+    <Key>
+      <PropertyRef Name="RoleID" />
+    </Key>
+    <Property Name="RoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoleName" Type="nvarchar" MaxLength="50" />
+    <Property Name="RoleDescription" Type="nvarchar" MaxLength="250" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="CreatedOn" Type="datetime" />
+  </EntityType>
+  <EntityType Name="TS_Users">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoleID" Type="int" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="100" />
+    <Property Name="FirstName" Type="nvarchar" MaxLength="100" />
+    <Property Name="LastName" Type="nvarchar" MaxLength="100" />
+    <Property Name="PhoneNumber" Type="nvarchar" MaxLength="14" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" />
+    <Property Name="Address" Type="nvarchar" MaxLength="500" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdateOn" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="Password" Type="nvarchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="TS_Vendors">
+    <Key>
+      <PropertyRef Name="VendorID" />
+    </Key>
+    <Property Name="VendorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="VName" Type="nvarchar" MaxLength="180" />
+    <Property Name="VAddress" Type="nvarchar" MaxLength="800" />
+    <Property Name="VPhone" Type="nvarchar" MaxLength="20" />
+    <Property Name="VEmail" Type="nvarchar" MaxLength="40" />
+    <Property Name="VFax" Type="nvarchar" MaxLength="20" />
+    <Property Name="VGSTIN" Type="nvarchar" MaxLength="40" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdateOn" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+  </EntityType>
+  <Association Name="fk_TS_CustomerProducts_CreatedBy_TS_Users_UserID">
+    <End Role="TS_Users" Type="Self.TS_Users" Multiplicity="0..1" />
+    <End Role="TS_CustomerProducts" Type="Self.TS_CustomerProducts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TS_Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="TS_CustomerProducts">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_TS_CustomerProducts_CustomerID_TS_Customers_CId">
+    <End Role="TS_Customers" Type="Self.TS_Customers" Multiplicity="0..1" />
+    <End Role="TS_CustomerProducts" Type="Self.TS_CustomerProducts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TS_Customers">
+        <PropertyRef Name="CId" />
+      </Principal>
+      <Dependent Role="TS_CustomerProducts">
+        <PropertyRef Name="CustomerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_TS_CustomerProducts_PaymentModeId_TS_PaymentModes_PaymentModeId">
+    <End Role="TS_PaymentModes" Type="Self.TS_PaymentModes" Multiplicity="0..1" />
+    <End Role="TS_CustomerProducts" Type="Self.TS_CustomerProducts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TS_PaymentModes">
+        <PropertyRef Name="PaymentModeId" />
+      </Principal>
+      <Dependent Role="TS_CustomerProducts">
+        <PropertyRef Name="PaymentModeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_TS_CustomerProducts_PaymentTypeId_TS_PaymentTypes_PaymentTypeId">
+    <End Role="TS_PaymentTypes" Type="Self.TS_PaymentTypes" Multiplicity="0..1" />
+    <End Role="TS_CustomerProducts" Type="Self.TS_CustomerProducts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TS_PaymentTypes">
+        <PropertyRef Name="PaymentTypeId" />
+      </Principal>
+      <Dependent Role="TS_CustomerProducts">
+        <PropertyRef Name="PaymentTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_TS_CustomerProducts_ProductModelId_TS_Models_ProductModelId">
+    <End Role="TS_Models" Type="Self.TS_Models" Multiplicity="0..1" />
+    <End Role="TS_CustomerProducts" Type="Self.TS_CustomerProducts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TS_Models">
+        <PropertyRef Name="ProductModelId" />
+      </Principal>
+      <Dependent Role="TS_CustomerProducts">
+        <PropertyRef Name="ProductModelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_TS_CustomerProducts_UpdatedBy_TS_Users_UserID">
+    <End Role="TS_Users" Type="Self.TS_Users" Multiplicity="0..1" />
+    <End Role="TS_CustomerProducts" Type="Self.TS_CustomerProducts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TS_Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="TS_CustomerProducts">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_TS_CustomerProductTransaction_CProductID_TS_CustomerProducts_SerialID">
+    <End Role="TS_CustomerProducts" Type="Self.TS_CustomerProducts" Multiplicity="0..1" />
+    <End Role="TS_CustomerProductTransaction" Type="Self.TS_CustomerProductTransaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TS_CustomerProducts">
+        <PropertyRef Name="CProductID" />
+      </Principal>
+      <Dependent Role="TS_CustomerProductTransaction">
+        <PropertyRef Name="CProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_TS_CustomerProductTransaction_CreatedBy_TS_Users_UserID">
+    <End Role="TS_Users" Type="Self.TS_Users" Multiplicity="0..1" />
+    <End Role="TS_CustomerProductTransaction" Type="Self.TS_CustomerProductTransaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TS_Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="TS_CustomerProductTransaction">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_TS_CustomerProductTransaction_PaymentTypeId_TS_PaymentTypes_PaymentTypeId">
+    <End Role="TS_PaymentTypes" Type="Self.TS_PaymentTypes" Multiplicity="0..1" />
+    <End Role="TS_CustomerProductTransaction" Type="Self.TS_CustomerProductTransaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TS_PaymentTypes">
+        <PropertyRef Name="PaymentTypeId" />
+      </Principal>
+      <Dependent Role="TS_CustomerProductTransaction">
+        <PropertyRef Name="PaymentTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_TS_CustomerProductTransaction_UpdatedBy_TS_Users_UserID">
+    <End Role="TS_Users" Type="Self.TS_Users" Multiplicity="0..1" />
+    <End Role="TS_CustomerProductTransaction" Type="Self.TS_CustomerProductTransaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TS_Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="TS_CustomerProductTransaction">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_TS_Customers_CreatedBy_TS_Users_UserID">
+    <End Role="TS_Users" Type="Self.TS_Users" Multiplicity="0..1" />
+    <End Role="TS_Customers" Type="Self.TS_Customers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TS_Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="TS_Customers">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_TS_Customers_UpdatedBy_TS_Users_UserID">
+    <End Role="TS_Users" Type="Self.TS_Users" Multiplicity="0..1" />
+    <End Role="TS_Customers" Type="Self.TS_Customers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TS_Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="TS_Customers">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_TS_Materials_CreatedBy_TS_Users_UserID">
+    <End Role="TS_Users" Type="Self.TS_Users" Multiplicity="0..1" />
+    <End Role="TS_Materials" Type="Self.TS_Materials" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TS_Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="TS_Materials">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_TS_Materials_UpdatedBy_TS_Users_UserID">
+    <End Role="TS_Users" Type="Self.TS_Users" Multiplicity="0..1" />
+    <End Role="TS_Materials" Type="Self.TS_Materials" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TS_Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="TS_Materials">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_TS_Materials_VendorId_TS_Vendors_VendorID">
+    <End Role="TS_Vendors" Type="Self.TS_Vendors" Multiplicity="0..1" />
+    <End Role="TS_Materials" Type="Self.TS_Materials" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TS_Vendors">
+        <PropertyRef Name="VendorID" />
+      </Principal>
+      <Dependent Role="TS_Materials">
+        <PropertyRef Name="VendorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_TS_Model_SerialNos_CreatedBy_TS_Users_UserID">
+    <End Role="TS_Users" Type="Self.TS_Users" Multiplicity="0..1" />
+    <End Role="TS_Model_SerialNos" Type="Self.TS_Model_SerialNos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TS_Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="TS_Model_SerialNos">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_TS_Model_SerialNos_ProductTypeId_TS_Models_ProductModelId">
+    <End Role="TS_Models" Type="Self.TS_Models" Multiplicity="0..1" />
+    <End Role="TS_Model_SerialNos" Type="Self.TS_Model_SerialNos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TS_Models">
+        <PropertyRef Name="ProductModelId" />
+      </Principal>
+      <Dependent Role="TS_Model_SerialNos">
+        <PropertyRef Name="ProductModelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_TS_Model_SerialNos_UpdatedBy_TS_Users_UserID">
+    <End Role="TS_Users" Type="Self.TS_Users" Multiplicity="0..1" />
+    <End Role="TS_Model_SerialNos" Type="Self.TS_Model_SerialNos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TS_Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="TS_Model_SerialNos">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_TS_Models_CreatedBy_TS_Users_UserID">
+    <End Role="TS_Users" Type="Self.TS_Users" Multiplicity="0..1" />
+    <End Role="TS_Models" Type="Self.TS_Models" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TS_Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="TS_Models">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_TS_Models_ProductTypeId_TS_ProductTypes_ProductTypeId">
+    <End Role="TS_ProductTypes" Type="Self.TS_ProductTypes" Multiplicity="0..1" />
+    <End Role="TS_Models" Type="Self.TS_Models" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TS_ProductTypes">
+        <PropertyRef Name="ProductTypeId" />
+      </Principal>
+      <Dependent Role="TS_Models">
+        <PropertyRef Name="ProductTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_TS_Models_UpdatedBy_TS_Users_UserID">
+    <End Role="TS_Users" Type="Self.TS_Users" Multiplicity="0..1" />
+    <End Role="TS_Models" Type="Self.TS_Models" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TS_Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="TS_Models">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_TS_ModelSerialNos_CreatedBy_TS_Users_UserID">
+    <End Role="TS_Users" Type="Self.TS_Users" Multiplicity="0..1" />
+    <End Role="TS_ModelSerialNos" Type="Self.TS_ModelSerialNos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TS_Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="TS_ModelSerialNos">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_TS_ModelSerialNos_ModelId_TS_ProductModels_ModelID">
+    <End Role="TS_ProductModels" Type="Self.TS_ProductModels" Multiplicity="0..1" />
+    <End Role="TS_ModelSerialNos" Type="Self.TS_ModelSerialNos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TS_ProductModels">
+        <PropertyRef Name="ModelID" />
+      </Principal>
+      <Dependent Role="TS_ModelSerialNos">
+        <PropertyRef Name="ModelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_TS_ModelSerialNos_UpdatedBy_TS_Users_UserID">
+    <End Role="TS_Users" Type="Self.TS_Users" Multiplicity="0..1" />
+    <End Role="TS_ModelSerialNos" Type="Self.TS_ModelSerialNos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TS_Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="TS_ModelSerialNos">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_TS_PaymentModes_CreatedBy_TS_Users_UserID">
+    <End Role="TS_Users" Type="Self.TS_Users" Multiplicity="0..1" />
+    <End Role="TS_PaymentModes" Type="Self.TS_PaymentModes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TS_Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="TS_PaymentModes">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_TS_PaymentModes_UpdatedBy_TS_Users_UserID">
+    <End Role="TS_Users" Type="Self.TS_Users" Multiplicity="0..1" />
+    <End Role="TS_PaymentModes" Type="Self.TS_PaymentModes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TS_Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="TS_PaymentModes">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_TS_PaymentTypes_CreatedBy_TS_Users_UserID">
+    <End Role="TS_Users" Type="Self.TS_Users" Multiplicity="0..1" />
+    <End Role="TS_PaymentTypes" Type="Self.TS_PaymentTypes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TS_Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="TS_PaymentTypes">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_TS_PaymentTypes_UpdatedBy_TS_Users_UserID">
+    <End Role="TS_Users" Type="Self.TS_Users" Multiplicity="0..1" />
+    <End Role="TS_PaymentTypes" Type="Self.TS_PaymentTypes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TS_Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="TS_PaymentTypes">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_TS_ProductModels_CreatedBy_TS_Users_UserID">
+    <End Role="TS_Users" Type="Self.TS_Users" Multiplicity="0..1" />
+    <End Role="TS_ProductModels" Type="Self.TS_ProductModels" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TS_Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="TS_ProductModels">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_TS_ProductModels_ProductModelId_TS_Models_ProductModelId">
+    <End Role="TS_Models" Type="Self.TS_Models" Multiplicity="0..1" />
+    <End Role="TS_ProductModels" Type="Self.TS_ProductModels" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TS_Models">
+        <PropertyRef Name="ProductModelId" />
+      </Principal>
+      <Dependent Role="TS_ProductModels">
+        <PropertyRef Name="ProductModelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_TS_ProductModels_ProductTypeId_TS_Materials_MaterialID">
+    <End Role="TS_Materials" Type="Self.TS_Materials" Multiplicity="0..1" />
+    <End Role="TS_ProductModels" Type="Self.TS_ProductModels" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TS_Materials">
+        <PropertyRef Name="MaterialID" />
+      </Principal>
+      <Dependent Role="TS_ProductModels">
+        <PropertyRef Name="MaterialID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_TS_ProductModels_ProductTypeId_TS_ProductTypes_ProductTypeId">
+    <End Role="TS_ProductTypes" Type="Self.TS_ProductTypes" Multiplicity="0..1" />
+    <End Role="TS_ProductModels" Type="Self.TS_ProductModels" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TS_ProductTypes">
+        <PropertyRef Name="ProductTypeId" />
+      </Principal>
+      <Dependent Role="TS_ProductModels">
+        <PropertyRef Name="ProductTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_TS_ProductModels_UpdatedBy_TS_Users_UserID">
+    <End Role="TS_Users" Type="Self.TS_Users" Multiplicity="0..1" />
+    <End Role="TS_ProductModels" Type="Self.TS_ProductModels" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TS_Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="TS_ProductModels">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_TS_ProductTypes_CreatedBy_TS_Users_UserID">
+    <End Role="TS_Users" Type="Self.TS_Users" Multiplicity="0..1" />
+    <End Role="TS_ProductTypes" Type="Self.TS_ProductTypes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TS_Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="TS_ProductTypes">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_TS_ProductTypes_UpdatedBy_TS_Users_UserID">
+    <End Role="TS_Users" Type="Self.TS_Users" Multiplicity="0..1" />
+    <End Role="TS_ProductTypes" Type="Self.TS_ProductTypes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TS_Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="TS_ProductTypes">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_TS_Users_RoleID_TS_Roles_RoleID">
+    <End Role="TS_Roles" Type="Self.TS_Roles" Multiplicity="0..1" />
+    <End Role="TS_Users" Type="Self.TS_Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TS_Roles">
+        <PropertyRef Name="RoleID" />
+      </Principal>
+      <Dependent Role="TS_Users">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_TS_Vendors_CreatedBy_TS_Users_UserID">
+    <End Role="TS_Users" Type="Self.TS_Users" Multiplicity="0..1" />
+    <End Role="TS_Vendors" Type="Self.TS_Vendors" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TS_Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="TS_Vendors">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_TS_Vendors_UpdatedBy_TS_Users_UserID">
+    <End Role="TS_Users" Type="Self.TS_Users" Multiplicity="0..1" />
+    <End Role="TS_Vendors" Type="Self.TS_Vendors" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TS_Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="TS_Vendors">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="usp_ProductSalePurChaseReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="FromDate" Type="date" Mode="In" />
+    <Parameter Name="ToDate" Type="date" Mode="In" />
+  </Function>
+  <EntityContainer Name="AVSTechnoModelStoreContainer">
+    <EntitySet Name="TS_CustomerProducts" EntityType="Self.TS_CustomerProducts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TS_CustomerProductTransaction" EntityType="Self.TS_CustomerProductTransaction" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TS_Customers" EntityType="Self.TS_Customers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TS_Materials" EntityType="Self.TS_Materials" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TS_Model_SerialNos" EntityType="Self.TS_Model_SerialNos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TS_Models" EntityType="Self.TS_Models" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TS_ModelSerialNos" EntityType="Self.TS_ModelSerialNos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TS_PaymentModes" EntityType="Self.TS_PaymentModes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TS_PaymentTypes" EntityType="Self.TS_PaymentTypes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TS_ProductModels" EntityType="Self.TS_ProductModels" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TS_ProductTypes" EntityType="Self.TS_ProductTypes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TS_Roles" EntityType="Self.TS_Roles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TS_Users" EntityType="Self.TS_Users" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TS_Vendors" EntityType="Self.TS_Vendors" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="fk_TS_CustomerProducts_CreatedBy_TS_Users_UserID" Association="Self.fk_TS_CustomerProducts_CreatedBy_TS_Users_UserID">
+      <End Role="TS_Users" EntitySet="TS_Users" />
+      <End Role="TS_CustomerProducts" EntitySet="TS_CustomerProducts" />
+    </AssociationSet>
+    <AssociationSet Name="fk_TS_CustomerProducts_CustomerID_TS_Customers_CId" Association="Self.fk_TS_CustomerProducts_CustomerID_TS_Customers_CId">
+      <End Role="TS_Customers" EntitySet="TS_Customers" />
+      <End Role="TS_CustomerProducts" EntitySet="TS_CustomerProducts" />
+    </AssociationSet>
+    <AssociationSet Name="fk_TS_CustomerProducts_PaymentModeId_TS_PaymentModes_PaymentModeId" Association="Self.fk_TS_CustomerProducts_PaymentModeId_TS_PaymentModes_PaymentModeId">
+      <End Role="TS_PaymentModes" EntitySet="TS_PaymentModes" />
+      <End Role="TS_CustomerProducts" EntitySet="TS_CustomerProducts" />
+    </AssociationSet>
+    <AssociationSet Name="fk_TS_CustomerProducts_PaymentTypeId_TS_PaymentTypes_PaymentTypeId" Association="Self.fk_TS_CustomerProducts_PaymentTypeId_TS_PaymentTypes_PaymentTypeId">
+      <End Role="TS_PaymentTypes" EntitySet="TS_PaymentTypes" />
+      <End Role="TS_CustomerProducts" EntitySet="TS_CustomerProducts" />
+    </AssociationSet>
+    <AssociationSet Name="fk_TS_CustomerProducts_ProductModelId_TS_Models_ProductModelId" Association="Self.fk_TS_CustomerProducts_ProductModelId_TS_Models_ProductModelId">
+      <End Role="TS_Models" EntitySet="TS_Models" />
+      <End Role="TS_CustomerProducts" EntitySet="TS_CustomerProducts" />
+    </AssociationSet>
+    <AssociationSet Name="fk_TS_CustomerProducts_UpdatedBy_TS_Users_UserID" Association="Self.fk_TS_CustomerProducts_UpdatedBy_TS_Users_UserID">
+      <End Role="TS_Users" EntitySet="TS_Users" />
+      <End Role="TS_CustomerProducts" EntitySet="TS_CustomerProducts" />
+    </AssociationSet>
+    <AssociationSet Name="fk_TS_CustomerProductTransaction_CProductID_TS_CustomerProducts_SerialID" Association="Self.fk_TS_CustomerProductTransaction_CProductID_TS_CustomerProducts_SerialID">
+      <End Role="TS_CustomerProducts" EntitySet="TS_CustomerProducts" />
+      <End Role="TS_CustomerProductTransaction" EntitySet="TS_CustomerProductTransaction" />
+    </AssociationSet>
+    <AssociationSet Name="fk_TS_CustomerProductTransaction_CreatedBy_TS_Users_UserID" Association="Self.fk_TS_CustomerProductTransaction_CreatedBy_TS_Users_UserID">
+      <End Role="TS_Users" EntitySet="TS_Users" />
+      <End Role="TS_CustomerProductTransaction" EntitySet="TS_CustomerProductTransaction" />
+    </AssociationSet>
+    <AssociationSet Name="fk_TS_CustomerProductTransaction_PaymentTypeId_TS_PaymentTypes_PaymentTypeId" Association="Self.fk_TS_CustomerProductTransaction_PaymentTypeId_TS_PaymentTypes_PaymentTypeId">
+      <End Role="TS_PaymentTypes" EntitySet="TS_PaymentTypes" />
+      <End Role="TS_CustomerProductTransaction" EntitySet="TS_CustomerProductTransaction" />
+    </AssociationSet>
+    <AssociationSet Name="fk_TS_CustomerProductTransaction_UpdatedBy_TS_Users_UserID" Association="Self.fk_TS_CustomerProductTransaction_UpdatedBy_TS_Users_UserID">
+      <End Role="TS_Users" EntitySet="TS_Users" />
+      <End Role="TS_CustomerProductTransaction" EntitySet="TS_CustomerProductTransaction" />
+    </AssociationSet>
+    <AssociationSet Name="fk_TS_Customers_CreatedBy_TS_Users_UserID" Association="Self.fk_TS_Customers_CreatedBy_TS_Users_UserID">
+      <End Role="TS_Users" EntitySet="TS_Users" />
+      <End Role="TS_Customers" EntitySet="TS_Customers" />
+    </AssociationSet>
+    <AssociationSet Name="fk_TS_Customers_UpdatedBy_TS_Users_UserID" Association="Self.fk_TS_Customers_UpdatedBy_TS_Users_UserID">
+      <End Role="TS_Users" EntitySet="TS_Users" />
+      <End Role="TS_Customers" EntitySet="TS_Customers" />
+    </AssociationSet>
+    <AssociationSet Name="fk_TS_Materials_CreatedBy_TS_Users_UserID" Association="Self.fk_TS_Materials_CreatedBy_TS_Users_UserID">
+      <End Role="TS_Users" EntitySet="TS_Users" />
+      <End Role="TS_Materials" EntitySet="TS_Materials" />
+    </AssociationSet>
+    <AssociationSet Name="fk_TS_Materials_UpdatedBy_TS_Users_UserID" Association="Self.fk_TS_Materials_UpdatedBy_TS_Users_UserID">
+      <End Role="TS_Users" EntitySet="TS_Users" />
+      <End Role="TS_Materials" EntitySet="TS_Materials" />
+    </AssociationSet>
+    <AssociationSet Name="fk_TS_Materials_VendorId_TS_Vendors_VendorID" Association="Self.fk_TS_Materials_VendorId_TS_Vendors_VendorID">
+      <End Role="TS_Vendors" EntitySet="TS_Vendors" />
+      <End Role="TS_Materials" EntitySet="TS_Materials" />
+    </AssociationSet>
+    <AssociationSet Name="fk_TS_Model_SerialNos_CreatedBy_TS_Users_UserID" Association="Self.fk_TS_Model_SerialNos_CreatedBy_TS_Users_UserID">
+      <End Role="TS_Users" EntitySet="TS_Users" />
+      <End Role="TS_Model_SerialNos" EntitySet="TS_Model_SerialNos" />
+    </AssociationSet>
+    <AssociationSet Name="fk_TS_Model_SerialNos_ProductTypeId_TS_Models_ProductModelId" Association="Self.fk_TS_Model_SerialNos_ProductTypeId_TS_Models_ProductModelId">
+      <End Role="TS_Models" EntitySet="TS_Models" />
+      <End Role="TS_Model_SerialNos" EntitySet="TS_Model_SerialNos" />
+    </AssociationSet>
+    <AssociationSet Name="fk_TS_Model_SerialNos_UpdatedBy_TS_Users_UserID" Association="Self.fk_TS_Model_SerialNos_UpdatedBy_TS_Users_UserID">
+      <End Role="TS_Users" EntitySet="TS_Users" />
+      <End Role="TS_Model_SerialNos" EntitySet="TS_Model_SerialNos" />
+    </AssociationSet>
+    <AssociationSet Name="fk_TS_Models_CreatedBy_TS_Users_UserID" Association="Self.fk_TS_Models_CreatedBy_TS_Users_UserID">
+      <End Role="TS_Users" EntitySet="TS_Users" />
+      <End Role="TS_Models" EntitySet="TS_Models" />
+    </AssociationSet>
+    <AssociationSet Name="fk_TS_Models_ProductTypeId_TS_ProductTypes_ProductTypeId" Association="Self.fk_TS_Models_ProductTypeId_TS_ProductTypes_ProductTypeId">
+      <End Role="TS_ProductTypes" EntitySet="TS_ProductTypes" />
+      <End Role="TS_Models" EntitySet="TS_Models" />
+    </AssociationSet>
+    <AssociationSet Name="fk_TS_Models_UpdatedBy_TS_Users_UserID" Association="Self.fk_TS_Models_UpdatedBy_TS_Users_UserID">
+      <End Role="TS_Users" EntitySet="TS_Users" />
+      <End Role="TS_Models" EntitySet="TS_Models" />
+    </AssociationSet>
+    <AssociationSet Name="fk_TS_ModelSerialNos_CreatedBy_TS_Users_UserID" Association="Self.fk_TS_ModelSerialNos_CreatedBy_TS_Users_UserID">
+      <End Role="TS_Users" EntitySet="TS_Users" />
+      <End Role="TS_ModelSerialNos" EntitySet="TS_ModelSerialNos" />
+    </AssociationSet>
+    <AssociationSet Name="fk_TS_ModelSerialNos_ModelId_TS_ProductModels_ModelID" Association="Self.fk_TS_ModelSerialNos_ModelId_TS_ProductModels_ModelID">
+      <End Role="TS_ProductModels" EntitySet="TS_ProductModels" />
+      <End Role="TS_ModelSerialNos" EntitySet="TS_ModelSerialNos" />
+    </AssociationSet>
+    <AssociationSet Name="fk_TS_ModelSerialNos_UpdatedBy_TS_Users_UserID" Association="Self.fk_TS_ModelSerialNos_UpdatedBy_TS_Users_UserID">
+      <End Role="TS_Users" EntitySet="TS_Users" />
+      <End Role="TS_ModelSerialNos" EntitySet="TS_ModelSerialNos" />
+    </AssociationSet>
+    <AssociationSet Name="fk_TS_PaymentModes_CreatedBy_TS_Users_UserID" Association="Self.fk_TS_PaymentModes_CreatedBy_TS_Users_UserID">
+      <End Role="TS_Users" EntitySet="TS_Users" />
+      <End Role="TS_PaymentModes" EntitySet="TS_PaymentModes" />
+    </AssociationSet>
+    <AssociationSet Name="fk_TS_PaymentModes_UpdatedBy_TS_Users_UserID" Association="Self.fk_TS_PaymentModes_UpdatedBy_TS_Users_UserID">
+      <End Role="TS_Users" EntitySet="TS_Users" />
+      <End Role="TS_PaymentModes" EntitySet="TS_PaymentModes" />
+    </AssociationSet>
+    <AssociationSet Name="fk_TS_PaymentTypes_CreatedBy_TS_Users_UserID" Association="Self.fk_TS_PaymentTypes_CreatedBy_TS_Users_UserID">
+      <End Role="TS_Users" EntitySet="TS_Users" />
+      <End Role="TS_PaymentTypes" EntitySet="TS_PaymentTypes" />
+    </AssociationSet>
+    <AssociationSet Name="fk_TS_PaymentTypes_UpdatedBy_TS_Users_UserID" Association="Self.fk_TS_PaymentTypes_UpdatedBy_TS_Users_UserID">
+      <End Role="TS_Users" EntitySet="TS_Users" />
+      <End Role="TS_PaymentTypes" EntitySet="TS_PaymentTypes" />
+    </AssociationSet>
+    <AssociationSet Name="fk_TS_ProductModels_CreatedBy_TS_Users_UserID" Association="Self.fk_TS_ProductModels_CreatedBy_TS_Users_UserID">
+      <End Role="TS_Users" EntitySet="TS_Users" />
+      <End Role="TS_ProductModels" EntitySet="TS_ProductModels" />
+    </AssociationSet>
+    <AssociationSet Name="fk_TS_ProductModels_ProductModelId_TS_Models_ProductModelId" Association="Self.fk_TS_ProductModels_ProductModelId_TS_Models_ProductModelId">
+      <End Role="TS_Models" EntitySet="TS_Models" />
+      <End Role="TS_ProductModels" EntitySet="TS_ProductModels" />
+    </AssociationSet>
+    <AssociationSet Name="fk_TS_ProductModels_ProductTypeId_TS_Materials_MaterialID" Association="Self.fk_TS_ProductModels_ProductTypeId_TS_Materials_MaterialID">
+      <End Role="TS_Materials" EntitySet="TS_Materials" />
+      <End Role="TS_ProductModels" EntitySet="TS_ProductModels" />
+    </AssociationSet>
+    <AssociationSet Name="fk_TS_ProductModels_ProductTypeId_TS_ProductTypes_ProductTypeId" Association="Self.fk_TS_ProductModels_ProductTypeId_TS_ProductTypes_ProductTypeId">
+      <End Role="TS_ProductTypes" EntitySet="TS_ProductTypes" />
+      <End Role="TS_ProductModels" EntitySet="TS_ProductModels" />
+    </AssociationSet>
+    <AssociationSet Name="fk_TS_ProductModels_UpdatedBy_TS_Users_UserID" Association="Self.fk_TS_ProductModels_UpdatedBy_TS_Users_UserID">
+      <End Role="TS_Users" EntitySet="TS_Users" />
+      <End Role="TS_ProductModels" EntitySet="TS_ProductModels" />
+    </AssociationSet>
+    <AssociationSet Name="fk_TS_ProductTypes_CreatedBy_TS_Users_UserID" Association="Self.fk_TS_ProductTypes_CreatedBy_TS_Users_UserID">
+      <End Role="TS_Users" EntitySet="TS_Users" />
+      <End Role="TS_ProductTypes" EntitySet="TS_ProductTypes" />
+    </AssociationSet>
+    <AssociationSet Name="fk_TS_ProductTypes_UpdatedBy_TS_Users_UserID" Association="Self.fk_TS_ProductTypes_UpdatedBy_TS_Users_UserID">
+      <End Role="TS_Users" EntitySet="TS_Users" />
+      <End Role="TS_ProductTypes" EntitySet="TS_ProductTypes" />
+    </AssociationSet>
+    <AssociationSet Name="fk_TS_Users_RoleID_TS_Roles_RoleID" Association="Self.fk_TS_Users_RoleID_TS_Roles_RoleID">
+      <End Role="TS_Roles" EntitySet="TS_Roles" />
+      <End Role="TS_Users" EntitySet="TS_Users" />
+    </AssociationSet>
+    <AssociationSet Name="fk_TS_Vendors_CreatedBy_TS_Users_UserID" Association="Self.fk_TS_Vendors_CreatedBy_TS_Users_UserID">
+      <End Role="TS_Users" EntitySet="TS_Users" />
+      <End Role="TS_Vendors" EntitySet="TS_Vendors" />
+    </AssociationSet>
+    <AssociationSet Name="fk_TS_Vendors_UpdatedBy_TS_Users_UserID" Association="Self.fk_TS_Vendors_UpdatedBy_TS_Users_UserID">
+      <End Role="TS_Users" EntitySet="TS_Users" />
+      <End Role="TS_Vendors" EntitySet="TS_Vendors" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,129 @@
+﻿@model IEnumerable<AVSModels.Models.UserModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_CustomMainLayout.cshtml";
+}
+
+<style>
+    .emp {
+        width: 800px !important;
+        height: 250px !important;
+        position: absolute !important;
+        margin-top: 300px !important;
+    }
+</style>
+<link href="~/Content/Datatable/dataTables.bootstrap4.min.css" rel="stylesheet" />
+<section class="wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <ol class="breadcrumb">
+                <li><i class="fa fa-home"></i><a href="index.html">Home</a></li>
+                <li><i class="fa fa-table"></i>Employees</li>
+            </ol>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel panel-success">
+                <header class="panel-heading">
+                    <a href="#" id="AddNewEmployee" class="btn btn-xs btn-primary" onclick="NewEmployee()" title="create new Employee"><span class="fa fa-plus-circle"></span> Create New Employee &nbsp;</a>
+                </header>
+                <div class="panel-body">
+                    <table class="table table-bordered table-hover" id="tdusers">
+                        <thead class="thead">
+                            <tr>
+                                <th><i class="icon_profile"></i> Full name</th>
+                                <th><i class="icon_key"></i> Username</th>
+                                <th><i class="icon_profile"></i> Role</th>
+                                <th><i class="icon_phone"></i> Phone number</th>
+                                <th><i class="icon_pin_alt"></i> Address</th>
+                                <th><i class="icon_cogs"></i> Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @if (Model != null)
+                            {
+                                foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.FirstName @item.LastName</td>
+                                        <td>@item.UserName</td>
+                                        <td>@item.RoleName</td>
+                                        <td>@item.PhoneNumber</td>
+                                        <td>@item.Address</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <a class="btn btn-xs btn-primary" onclick="EditEmployee(@item.UserID)" href="#"><i class="fa fa-pencil-square-o"></i></a>
+                                                <a class="btn btn-xs btn-info" onclick="ViewEmployee(@item.UserID)"><i class="fa fa-eye"></i></a>
+                                                <a class="btn btn-xs btn-danger" onclick="DeleteEmployee(@item.UserID)" href="#"><i class="fa fa-trash-o"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+
+            </section>
+        </div>
+    </div>
+
+</section>
+@section Scripts {
+    <script src="~/Content/Datatable/jquery.dataTables.min.js"></script>
+    <script src="~/Content/Datatable/dataTables.bootstrap4.min.js"></script>
+ 
+
+    <script>
+        $(document).ready(function () {
+            $('#tdusers').DataTable({
+                "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
+            });
+        });
+        function EditEmployee(Userid) {
+
+            window.location.href = "/User/AddUser?userid=" + Userid;
+        }
+        function DeleteEmployee(userId) {
+            debugger;
+            $.ajax({
+                async: false,
+                url: "/User/DeleteUser",
+                type: "POST",
+                data: { userid: userId },
+                success: function (result) {
+                    debugger;
+                    if (result) {
+                        notification('success', 'User Deleted successfully');
+                        window.location.reload();
+                    }
+                    else {
+                        notification('warning', 'Failed to Delete User');
+                    }
+                }
+            });
+        }
+
+
+        function NewEmployee(Userid) {
+            window.location.href = "/User/AddUser?userid=" + Userid;
+
+            //$.ajax({
+            //    async: false,
+            //    url: "/User/AddUser",
+            //    type: "get",
+            //    //data: { userid: UserID },
+            //}).done(function (data) {
+
+            //    $("#renderformpage").html(data);
+            //});
+        }
+
+    </script>
+
+
+}

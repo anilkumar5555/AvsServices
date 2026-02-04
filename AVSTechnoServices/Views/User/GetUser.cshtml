@@ -1,0 +1,309 @@
+﻿@model AVSModels.Models.UserModel
+@{
+    ViewBag.Title = "Material";
+    Layout = null;
+}
+
+<section class="wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+                <ol class="breadcrumb">
+                    <li><i class="fa fa-file-text-o"></i>User Profile</li>
+                </ol>
+        </div>
+    </div>
+    <section class="pannel panel-success">
+        <div class="panel-body">
+            <div class="row mb-2">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-5">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            @Html.HiddenFor(m => m.UserID)
+                            <label for="FirstName" class="col-lg-4 control-label txtbold">FirstName</label>
+                            <div class="col-lg-6">
+                                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger", @id = "Error_FirstName" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label for="LastName" class="col-lg-4 control-label txtbold">LastName</label>
+                            <div class="col-lg-6">
+                                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger", @id = "Error_LastName" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-1"></div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-5">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label for="PhoneNumber" class="col-lg-4 control-label txtbold">PhoneNumber</label>
+                            <div class="col-lg-6">
+                                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control", @onkeypress = "Allowdigits(event, this);limit(event,this, 10)" } })
+                                @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger", @id = "Error_PhoneNumber" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label for="Email" class="col-lg-4 control-label txtbold">Email</label>
+                            <div class="col-lg-6">
+                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger", @id = "Error_Email" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-1"></div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-5">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label for="UserName" class="col-lg-4 control-label txtbold">UserName</label>
+                            <div class="col-lg-6">
+                                @if (Model.UserID != 0)
+                                {
+                                    @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control  ", @disabled = "disabled" } })
+                                }
+                                else
+                                {
+                                    @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control  " } })
+                                }
+                                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    @Html.HiddenFor(m => m.RoleID)
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label for="Password" class="col-lg-4 control-label txtbold">Password</label>
+                            <div class="col-lg-6">
+                                @if (Model.UserID != 0)
+                                {
+                                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control  ", @type = "Password", @disabled = "disabled" } })
+                                }
+                                else
+                                {
+                                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control  ", @type = "Password" } })
+                                }
+
+                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-1"></div>
+            </div>
+
+            @*<div class="row mb-2">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-5">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label for="BranchID" class="col-lg-4 control-label txtbold">Branch</label>
+                            <div class="col-lg-6">
+                                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger", @id = "Error_BranchID" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label for="RoleID" class="col-lg-4 control-label txtbold">Role</label>
+                            <div class="col-lg-6">
+                                @Html.EditorFor(model => model.RoleName, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.RoleName, "", new { @class = "text-danger", @id = "Error_RoleID" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-1"></div>
+            </div>*@
+
+            <div class="row mb-2">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-10">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label for="Address" class="col-lg-2 control-label txtbold">Address</label>
+                            <div class="col-lg-9">
+                                @Html.TextAreaFor(model => model.Address, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger", @id = "Error_Address" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-1"></div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-10">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-lg-2"></div>
+                            <div class="col-lg-9">
+                                @if (Model.UserID != 0)
+                                {
+                                    <button type="button" id="saveUser" class="btn btn-primary pull-right">Update</button>
+                                }
+                                else
+                                {
+                                    <button type="button" id="saveUser" class="btn btn-primary pull-right">Save</button>
+                                }
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-1"></div>
+
+            </div>
+        </div>
+    </section>
+</section>
+<script>
+    $("#saveUser").click(function () {
+        SaveUser();
+    });
+    function SaveUser() {
+        debugger;
+        var isValid = UserModelValidation();
+        if (isValid) {
+            var username = $("#UserName").val();
+            var UserId = $("#UserID").val();
+            var firstName = $("#FirstName").val();
+            var LastName = $("#LastName").val();
+            var PhoneNumber = $("#PhoneNumber").val();
+            var Email = $("#Email").val();
+            var RoleID = $("#RoleID").val();
+            var Password = $("#Password").val();
+            var Address = $("#Address").val();
+
+            var userModel = {
+                UserID: UserId,
+                UserName: username,
+                FirstName: firstName,
+                LastName: LastName,
+                PhoneNumber: PhoneNumber,
+                Email: Email,
+                RoleID: RoleID,
+                Password: Password,
+                Address: Address
+            };
+
+            $.ajax({
+                async: false,
+                url: "/User/AddUser",
+                type: "POST",
+                data: { model: userModel },
+                success: function (result) {
+                    if (result) {
+                        alert("Data Updated Successfully");
+                        window.location.href = "/User/Index";
+                    }
+                    else {
+                        alert("Data Not saved  ");
+                    }
+                }
+            });
+        }
+    }
+    function UserModelValidation() {
+        var ret = true;
+        var username = $("#UserName").val();
+
+        if (username == "") {
+            $("#Error_UserName").html("Please Enter user name");
+            ret = false;
+        }
+        else {
+            $("#Error_UserName").html("");
+        }
+        var firstName = $("#FirstName").val();
+
+        if (firstName == "") {
+            $("#Error_FirstName").html("Please Enter FirstName");
+            ret = false;
+        }
+        else {
+            $("#Error_FirstName").html("");
+        }
+        var LastName = $("#LastName").val();
+
+        if (LastName == "") {
+            $("#Error_LastName").html("Please Enter LastName");
+            ret = false;
+        }
+        else {
+            $("#Error_LastName").html("");
+        }
+        var PhoneNumber = $("#PhoneNumber").val();
+
+        if (PhoneNumber == "") {
+            $("#Error_PhoneNumber").html("Please Enter PhoneNumber");
+            ret = false;
+        }
+        else {
+            $("#Error_PhoneNumber").html("");
+        }
+        var Email = $("#Email").val();
+
+        if (Email == "") {
+            $("#Error_Email").html("Please Enter Email");
+            ret = false;
+        }
+        else {
+            $("#Error_Email").html("");
+        }
+        var BranchID = $("#BranchID").val();
+
+        if (BranchID == "") {
+            $("#Error_BranchID").html("Please Enter  BranchName");
+            ret = false;
+        }
+        else {
+            $("#Error_BranchID").html("");
+        }
+        var Address = $("#Address").val();
+
+        if (Address == "") {
+            $("#Error_Address").html("Please Enter Address");
+            ret = false;
+        }
+        else {
+            $("#Error_Address").html("");
+        }
+
+        var RoleID = $("#RoleID").val();
+
+        if (RoleID == "") {
+            $("#Error_RoleID").html("Please Enter  RoleName");
+            ret = false;
+        }
+        else {
+            $("#Error_RoleID").html("");
+        }
+        return ret;
+    }
+
+</script>

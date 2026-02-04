@@ -1,0 +1,219 @@
+﻿@model AVSModels.Models.VendorModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_CustomMainLayout.cshtml";
+}
+<style>
+   
+    .btm {
+        margin-bottom: 8px !important;
+    }
+     .control-label {
+        padding-left: 3px;
+    }
+    label {
+        color:black!important;
+        font-weight: 500;
+    }
+    .panel{
+        border-bottom-color:darkblue!important;
+    }
+    label {
+        text-align: left !important;
+        padding-right: 2px !important;
+        padding-left: 2px !important;
+    }
+    .btn1{
+        margin-top:10PX!important;
+    }
+   
+</style>
+
+<section class="wrapper">
+
+    <div class="row">
+        <div class="panel">
+        <div class="panel-heading" style="height:50px!important;">
+            @if (Model.VendorID != 0)
+            {<span>Update vendor</span>
+            }
+            else
+            {
+                
+
+            <a class="pull-right btn1 btn-sm btn-warning" title="Back to Vendors list"  href="#" onclick="BacktoVendors()"><span class="fa fa-1x fa-chevron-circle-left">&nbsp;Vendors</span></a>
+
+            }
+        </div>
+        <div class="panel-body" style="margin-top:30px!important;">
+            
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.HiddenFor(m   => m.VendorID)
+                            @Html.HiddenFor(m => m.UserID)
+                            <div class="row btm">
+                                <div class="col-md-12">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.VendorName, htmlAttributes: new { @class = "control-label labelcss  col-md-3" })
+                                            <div class="col-md-9">
+                                                @Html.EditorFor(model => model.VendorName, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.VendorName, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label labelcss col-md-3" })
+                                        <div class="col-md-9">
+                                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                        </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label labelcss col-md-3" })
+                                            <div class="col-md-9">
+                                                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="row btm">
+                                    <div class="col-md-12">
+                                        
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.Address, new { @class = "control-label labelcss col-md-3" })
+                                                    <div class="col-md-9">
+                                                        @Html.TextAreaFor(model => model.Address, new { @class = "form-control" })
+                                                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                           
+                                       
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.GSTIN, htmlAttributes: new { @class = "control-label labelcss col-md-3" })
+                                                <div class="col-md-9">
+                                                    @Html.EditorFor(model => model.GSTIN, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => model.GSTIN, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.Fax, htmlAttributes: new { @class = "control-label labelcss col-md-3" })
+                                                <div class="col-md-9">
+                                                    @Html.EditorFor(model => model.Fax, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => model.Fax, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="text-align:right!important; margin-top:25px!important; margin-right:15px!important;">
+                                    <div class="col-md-offset-2 col-md-10" >
+                                        <input type="submit" onclick="savevendor()" value="Save Vendor" class="btn btn-primary btn2" />
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+         </div>
+</section>
+        
+   
+
+    @section Scripts{
+        <script>
+
+            function VendorValidations() {
+                var ret = true;
+
+                var VendorName = $("#VendorName").val();
+                if (VendorName == "" || VendorName == undefined) {
+                    $("#Error_VendorName").html("Please enter VendorName");
+                    ret = false;
+                }
+                else {
+                    $("#Error_VendorName").html("");
+                }
+
+                var PhoneNumber = $("#PhoneNumber").val();
+                if (PhoneNumber == "" || PhoneNumber == undefined) {
+                    $("#Error_PhoneNumber").html("please enter PhoneNumber");
+                    ret = false;
+                }
+                else {
+                    $("#Error_PhoneNumber").html("");
+                }
+
+                return ret;
+            }
+
+            function savevendor() {
+                var isValid = VendorValidations();
+                if (isValid) {
+                    debugger;
+                    var vendorId = $("#VendorID").val();
+                    var vendorname = $("#VendorName").val();
+                    var Email = $("#Email").val();
+                    var PhoneNumber = $("#PhoneNumber").val();
+                    var Address = $("#Address").val();
+                    var Fax = $("#Fax").val();
+                    var Gstin = $("#GSTIN").val();
+
+                    var VendorModel = {
+                        VendorID: vendorId,
+                        VendorName: vendorname,
+                        Email: Email,
+                        PhoneNumber: PhoneNumber,
+                        Address: Address,
+                        Fax: Fax,
+                        GSTIN: Gstin
+                    }
+                    savevendorinfo(VendorModel);
+                }
+
+                else {
+                    notification('warning', 'Please enter valid information');
+                    return false;
+                }
+            }
+            function savevendorinfo(VendorModel) {
+                $.ajax({
+                    async: false,
+                    url: "/Vendor/Addvendor",
+                    type: "POST",
+                    data: { vendor: VendorModel },
+                    success: function (result) {
+                        if (result.status) {
+                            if (VendorModel.VendorID != 0) {
+                                notification('success', 'Vendor Details Updated Successfully');
+                                window.location.href = "/Vendor/Index";
+                            }
+                            else {
+                                notification('success', 'Vendor Added Successfully');
+                                window.location.href = "/Vendor/Index";
+                            }
+                        }
+                        else {
+                            notification('warning', 'Failed to Add Vendor');
+                        }
+                    }
+                });
+            }
+
+
+            function BacktoVendors() {
+                window.location.href = "/Vendor/Index";
+
+            }
+        </script>
+
+    }
+

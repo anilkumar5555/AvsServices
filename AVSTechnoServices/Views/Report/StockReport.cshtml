@@ -1,0 +1,111 @@
+﻿@model IEnumerable<AVSModels.Models.ReportModel>
+@{
+    ViewBag.Title = "StockReport";
+    Layout = "~/Views/Shared/_CustomMainLayout.cshtml";
+
+}
+<style>
+    .title {
+        font-size: 14px !important;
+        color: black;
+    }
+
+    .card {
+        box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+        -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+        -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    }
+</style>
+<link href="~/Content/Datatable/dataTables.bootstrap4.min.css" rel="stylesheet" />
+<section class="wrapper">
+    <div class="row mb" style="margin-top:20px!important;">
+
+        @{
+            var products = Model.GroupBy(a => a.ProductTypeId).Select(a => a.Key).ToList();
+            foreach (var productId in products.ToList())
+            {
+                var models = Model.Where(a => a.ProductTypeId == productId).ToList();
+                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                    <div class="card-deck" style="width:200px !important; color:black !important;">
+                        <div class="card white-bg">
+                            <div class="card-head">
+                                <i class="fa fa-shopping-cart fa-4x" style="margin-left:60px!important;"></i>
+                            </div>
+                            <div class="card-body text-center" style="color:black !important">
+                                <p class="card-text"></p>
+                                <p class="card-text" style="font-size:20px"><b>@models.FirstOrDefault().ProductTypeName</b></p>
+                                <p class="card-text"><b>Sales:  @models.Sum(a => a.TotalSalesQty)</b></p>
+                                <p class="card-text"><b>Purchase: @models.Sum(a => a.TotalPurchaseQty)</b></p>
+                                @{ int stock = models.Sum(a => a.TotalPurchaseQty) - models.Sum(a => a.TotalSalesQty);}
+                                <p class="card-text"><b>Stock:  @stock</b></p>
+                                <button class="btn btn-primary" style="margin-bottom:10px" onclick="loadProductInfo('@productId')">View Models</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+
+    <div class="row mb-2" id="bindProductModels">
+
+    </div>
+
+
+    <div class="row mb-2">
+        <div class="col-md-12">
+            <section class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="">Total Stock</div>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-advance table-hover table-bordered" id="tdStockGrid">
+                        <thead class="thead">
+                            <tr>
+                                <th><i class=""></i> Product Name</th>
+                                <th><i class=""></i> Model Name</th>
+                                <th><i class=""></i> Purchase Transactions</th>
+                                <th><i class=""></i> Purchase Qty</th>
+                                <th><i class=""></i>Sales Transactions</th>
+                                <th><i class=""></i> Sales Qty</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @if (Model != null)
+                            {
+                                foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.ProductTypeName</td>
+                                        <td>@item.ModelName</td>
+                                        <td>@item.TotalProductTransaction</td>
+                                        <td>@item.TotalPurchaseQty</td>
+                                        <td>@item.TotalSalesTransaction</td>
+                                        <td>@item.TotalSalesQty</td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>
+</section>
+@section Scripts {
+    <script src="~/Content/Datatable/jquery.dataTables.min.js"></script>
+    <script src="~/Content/Datatable/dataTables.bootstrap4.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#tdStockGrid').DataTable({
+                "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
+            });
+        });
+
+        function loadProductInfo(productId) {
+            $("#bindProductModels").load("/Report/ProductModelReport?productId=" + productId);
+        }
+    </script>
+}

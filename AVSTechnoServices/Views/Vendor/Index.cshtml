@@ -1,0 +1,87 @@
+﻿@model IEnumerable<AVSModels.Models.VendorModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_CustomMainLayout.cshtml";
+}
+<section class="wrapper">
+   <div class="row">
+        <div class="col-md-12">
+           <div class="panel-body">
+                <header>
+                    <a href="#" id="AddNewVendor" onclick="openvendors()" title="create new Vendor" class="btn btn-sm btn btn-primary"><span class="fa fa-plus-circle"></span> New Vendors &nbsp;</a>
+                </header>
+                <br />
+                <table class="table table-hover table-bordered" id="tdVendors">
+                    <thead class="thead">
+                        <tr>
+                            <th> Vendor Id</th>
+                            <th> Vendor name</th>
+                            <th>Phonenumber</th>
+                            <th> Address</th>
+                            <th>Email</th>
+                            <th>CreatedOn</th>
+                            <th><i class=""></i>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @if (Model != null)
+                        {
+                            foreach (var item in Model)
+                            {
+                                var createdDate = item.CreatedOn != null ? item.CreatedOn.Value.ToShortDateString() : string.Empty;
+                                <tr>
+                                    <td>@item.VendorID</td>
+                                    <td>@item.VendorName</td>
+                                    <td>@item.PhoneNumber</td>
+                                    <td>@item.Address</td>
+                                    <td>@item.Email</td>
+                                    <td>@createdDate</td>
+                                    <td>
+                                      
+                                            <a class="btn btn-xs btn-primary" onclick="EditVendor(@item.VendorID)" href="#"><i class="fa fa-pencil-square-o"></i></a>
+                                            @*<a class="btn btn-xs btn-info" onclick="ViewVendor(@item.VendorID)" href="#"><i class="fa fa-eye"></i></a>*@
+                                            <a class="btn btn-xs btn-danger" onclick="DeleteVendor(@item.VendorID)" href="#"><i class="fa fa-trash-o"></i></a>
+                                       
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+           
+        </div>
+    </div>
+
+</section>
+@section Scripts{
+    <script>
+        function openvendors() {
+            window.location.href = "/Vendor/AddVendor";
+        }
+
+        function EditVendor(VendorID) {
+            window.location.href = "/Vendor/AddVendor?VendorID=" + VendorID;
+        }
+
+        function DeleteVendor(VendorID) {
+
+            $.ajax({
+                async: false,
+                url: "/Vendor/DeleteVendor",
+                type: "POST",
+                data: { VendorID: VendorID },
+                success: function (result) {
+                    if (result) {
+                        notification('success', 'Vendor Deleted Successfully');
+                        location.reload();
+                    }
+                    else {
+                        notification('warning', 'Failed to Delete Vendor');
+                    }
+                }
+            });
+        }
+    </script>
+    }

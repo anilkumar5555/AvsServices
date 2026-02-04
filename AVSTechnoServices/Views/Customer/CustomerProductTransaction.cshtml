@@ -1,0 +1,82 @@
+﻿@model AVSModels.Models.CustomerProductTransactionModel
+<section>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(a => a.CProductID)
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="row">
+            <div class="panel-heading">
+                <div class="panel-title">ProductTransaction</div>
+            </div>
+            <div class="panel-body">
+                <div class="row btm">
+                    <div class="col-md-12">
+                        <div class="col-md-4">
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.CPTransactionID, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.CPTransactionID, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.CPTransactionID, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                           
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.NewPayment, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.NewPayment, new { htmlAttributes = new { @class = "form-control", @onchange = "ProductCalculation()" } })
+                                            @Html.ValidationMessageFor(model => model.NewPayment, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.TotalAmount, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.TotalAmount, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.TotalAmount, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row btm">
+                    <div class="col-md-12">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.PaidAmount, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.PaidAmount, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.PaidAmount, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.RemainingAmount, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.RemainingAmount, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.RemainingAmount, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            
+        
+
+    }
+</section>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

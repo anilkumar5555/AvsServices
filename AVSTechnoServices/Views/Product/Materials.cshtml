@@ -1,0 +1,57 @@
+﻿@model IEnumerable<AVSModels.Models.MaterialModel>
+@{
+    ViewBag.Title = "Materials";
+    Layout = "~/Views/Shared/_CustomMainLayout.cshtml";
+}
+<section class="wrapper">
+    <div class="panel-body">
+            <header>
+                <a class="btn btn-sm btn-primary pull-left" style="margin-bottom: 22px !important;" title="Add new customer transaction" href="/Product/Material" onclick="CreatMaterila()"><span class="fa fa-plus-circle"></span>New Invoice</a>
+             </header>
+            <br/>
+            <table class="table table-hover table-bordered" id="tdVendors">
+                <thead class="thead">
+                    <tr>
+                        <th> Vendor </th>
+                        @*<th> Product</th>*@
+                        @*<th>Qty</th>
+        <th> Unit Price</th>
+        <th>TotalTax</th>
+        <th>Total Balance</th>*@
+                        <th>Invoice No</th>
+                        <th>Material No</th>
+                        <th>Shipping Date</th>
+                        <th>Received Date</th>
+                        <th>Created On</th>
+                        <th><i class=""></i>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @if (Model != null)
+                    {
+                        foreach (var item in Model)
+                        {
+                            var receivedDate = item.RDate != null ? item.RDate.Value.ToShortDateString() : string.Empty;
+                            var shippingDate = item.SDate !=null ? item.SDate.Value.ToShortDateString() : string.Empty;
+                        <tr>
+                        <td>@item.VendorName</td>
+                        <td>@item.InvoiceNo</td>
+                        <td>@item.MaterialNo</td>
+                        <td>@receivedDate</td>
+                        <td>@shippingDate</td>
+                        <td>@item.CreatedOn.Value.ToShortDateString()</td>
+                        <td>
+                            <a class="btn btn-xs btn-primary" onclick="loadMaterial('@item.MaterialID')" href="/Product/Material?materialId=@item.MaterialID"><i class="fa fa-pencil-square-o"></i></a>
+                            <a class="btn btn-xs btn-danger" onclick="DeleteProduct('@item.MaterialID')" href="#"><i class="fa fa-trash-o"></i></a>
+                        </td>
+                    </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+
+
+    
+</section>

@@ -1,0 +1,542 @@
+﻿@model AVSModels.Models.MaterialModel
+
+@{
+    ViewBag.Title = "Material";
+    Layout = "~/Views/Shared/_CustomMainLayout.cshtml";
+}
+
+<style>
+    .btm {
+        margin-bottom: 8px !important;
+    }
+
+    .serialPadding {
+        padding-right: 29px;
+        padding-left: 20px;
+    }
+
+    .row {
+        color: blue !important;
+    }
+
+    label {
+        font-weight: 500;
+    }
+</style>
+
+<section class="wrapper">
+    <div class="row" id="materialContainer">
+        @Html.HiddenFor(m=>m.MaterialID)
+    </div>
+    <div class="row" id="productContainer">
+
+    </div>
+    <div class="row" id="productGrid">
+
+    </div>
+    @if (Model.MaterialID == 0)
+    {
+    <div class="row btm">
+        <div class="col-md-12">
+            <div class="form-group">
+                <div class="col-md-10"></div>
+                <div class="col-md-2">
+                    <input type="button" value="Create" onclick="SaveMaterialInformation()" class="btn btn-primary pull-right" />
+                </div>
+            </div>
+        </div>
+    </div>
+    }
+
+</section>
+
+    @section Scripts {
+        <script>
+        $(document).ready(function () {
+            var materialId = $('#MaterialID').val();
+            loadMaterial(materialId);
+            if (materialId != 0) { loadProductGrid(materialId) }
+            else { loadProduct(); }
+        });
+
+        function loadProduct(productId = 0,materialId=0)
+        {
+            $("#productContainer").load("/Product/CreateProduct?productId=" + productId + "&materialId=" + materialId);
+        }
+
+        function loadProductGrid(materialId)
+        {
+            $("#productGrid").load("/Product/GetMaterialProducts?materialId=" + materialId);
+        }
+
+        function loadMaterial(materialId = 0)
+        {
+            $("#materialContainer").load("/Product/CreateMaterial?materialId=" + materialId);
+        }
+
+       function ProductValidations() {
+           var ret = true;
+
+           var ModelName = $("#ModelName").val();
+           if (ModelName != undefined) {
+               if (ModelName == "" || ModelName == undefined) {
+                   $("#Error_ModelName").html("Please enter ModelName");
+                   ret = false;
+               }
+               else {
+                   $("#Error_ModelName").html("");
+               }
+           }
+
+           var UnitPrice = $("#UnitPrice").val();
+           if (UnitPrice == "" || UnitPrice == undefined) {
+               $("#Error_UnitPrice").html("please enter UnitPrice");
+               ret = false;
+           }
+           else {
+               $("#Error_UnitPrice").html("");
+           }
+           var Qty = $("#Qty").val();
+           if (Qty == "" || Qty == undefined) {
+               $("#Error_Qty").html("please enter Quantity");
+               ret = false;
+           }
+           else {
+               $("#Error_Qty").html("");
+           }
+           var HSNCode = $("#HSNCode").val();
+           if (HSNCode == "" || HSNCode == undefined) {
+               $("#Error_HSNCode").html("please enter HSNCode");
+               ret = false;
+           }
+           else {
+               $("#Error_HSNCode").html("");
+           }
+           var Capacity = $("#Capacity").val();
+           if (Capacity == "" || Capacity == undefined) {
+               $("#Error_Capacity").html("please enter Capacity");
+               ret = false;
+           }
+           else {
+               $("#Error_Capacity").html("");
+           }
+           var SerialNumber = $("#SerialNumber").val();
+           if (SerialNumber == "" || SerialNumber == undefined) {
+               $("#Error_SerialNumber").html("please enter SerialNumber");
+               ret = false;
+           }
+           else {
+               $("#Error_SerialNumber").html("");
+           }
+           var ACSerialNumber = $("#ACSerialNumber").val();
+           if (ACSerialNumber == "" || ACSerialNumber == undefined) {
+               $("#Error_ACSerialNumber").html("please enter ACSerialNumber");
+               ret = false;
+           }
+           else {
+               $("#Error_ACSerialNumber").html("");
+           }
+
+           var VendorId = $("#VendorId").val();
+           if (VendorId == "" || VendorId == undefined) {
+               $("#Error_VendorId").html("please enter VendorName");
+               ret = false;
+           }
+           else {
+               $("#Error_VendorId").html("");
+           }
+           var MaterialNo = $("#MaterialNo").val();
+           if (MaterialNo == "" || MaterialNo == undefined) {
+               $("#Error_MaterialNo").html("please enter Material Number");
+               ret = false;
+           }
+           else {
+               $("#Error_MaterialNo").html("");
+           }
+           var InvoiceNo = $("#InvoiceNo").val();
+           if (InvoiceNo == "" || InvoiceNo == undefined) {
+               $("#Error_InvoiceNo").html("please enter Invoice Number");
+               ret = false;
+           }
+           else {
+               $("#Error_InvoiceNo").html("");
+           }
+           var ShippingDate = $("#ShippingDate").val();
+           if (ShippingDate == "" || ShippingDate == undefined) {
+               $("#Error_ShippingDate").html("please enter ShippingDate");
+               ret = false;
+           }
+           else {
+               $("#Error_ShippingDate").html("");
+           }
+           var ReceivedDate = $("#ReceivedDate").val();
+           if (ReceivedDate == "" || ReceivedDate == undefined) {
+               $("#Error_ReceivedDate").html("please enter ReceivedDate");
+               ret = false;
+           }
+           else {
+               $("#Error_ReceivedDate").html("");
+           }
+
+           return ret;
+            }
+
+
+            function SaveMaterialInformation() {
+              
+           var isValid = ProductValidations()
+           if (isValid) {
+               var MaterialID = $("#MaterialID").val();
+               var VendorId = $("#VendorId").val();
+               var MaterialNo = $("#MaterialNo").val();
+               var InvoiceNo = $("#InvoiceNo").val();
+               var ShippingDate = $("#ShippingDate").val();
+               var ReceivedDate = $("#ReceivedDate").val();
+              
+
+               var producttypeId = $("#ProductTypeId").val();
+               var modelname = $("#ModelName").val();
+               if (modelname == undefined) { modelname = "" };
+
+               var Qty = $("#Qty").val();
+               var CGST = ConverttoAmount($("#CGST").val());
+               var SGST = ConverttoAmount($("#SGST").val());
+               var IGST = ConverttoAmount($("#IGST").val());
+               var TotalTax = ConverttoAmount($("#TotalTax").val());
+               var TotalBalance = ConverttoAmount($("#TotalBalance").val());
+               var unitprice = ConverttoAmount($("#UnitPrice").val());
+               var TotalTaxPercent = ConverttoAmount($('#TotalTaxPercent').val());
+
+               var SerialNumber = $("#SerialNumber").val();
+               var ACSerialNumber = $("#ACSerialNumber").val();
+               
+               var HSNCode = $("#HSNCode").val();
+               var Capacity = $("#Capacity").val();
+
+               var ModelId = $(".ModelId").val();
+               if (ModelId == undefined) { ModelId = 0 }
+               else {
+                   modelname = $(".ModelId :Selected").text();
+               }
+
+               var productModel = {
+                   ProductTypeId: producttypeId,
+                   ModelId: ModelId,
+                   ModelName: modelname,
+                   UnitPrice: unitprice,
+                   Qty: Qty,
+                   CGST: CGST,
+                   SGST: SGST,
+                   IGST: IGST,
+                   TotalTaxPercent: TotalTaxPercent,
+                   TotalTax: TotalTax,
+                   TotalBalance: TotalBalance,
+                   SerialNumber: SerialNumber,
+                   ACSerialNumber: ACSerialNumber,
+                   HSNCode: HSNCode,
+                   Capacity: Capacity
+               }
+
+               var MaterialModel = {
+                   MaterialID: MaterialID,
+                   MaterialNo: MaterialNo,
+                   InvoiceNo: InvoiceNo,
+                   ShippingDate: ShippingDate,
+                   ReceivedDate: ReceivedDate,
+                   VendorId: VendorId,
+                   product: productModel
+               }
+               savematerialinfo(MaterialModel);
+           }
+           else {
+               notification('warning', 'Please enter valid information');
+               return false;
+           }
+        }
+
+            function savematerialinfo(MaterialModel)
+            {
+                   $.ajax({
+                       async: false,
+                       url: "/Product/SaveMaterialProduct",
+                       type: "POST",
+                       data: { model: MaterialModel },
+                       success: function (result) {
+                        
+                           if (result.status){
+
+                               notification('success', 'Material Products Details Added Successfully');
+                               window.location.href = "/Product/Material?materialId=" + result.materialId;
+                           }
+                           else {
+                               notification('warning', result.message);
+                           }
+                       }
+                   });
+            }
+
+        function GetMaterialModel() {
+                var MaterialID = $("#MaterialID").val();
+                var VendorId = $("#VendorId").val();
+                var MaterialNo = $("#MaterialNo").val();
+                var InvoiceNo = $("#InvoiceNo").val();
+                var ShippingDate = $("#ShippingDate").val();
+                var ReceivedDate = $("#ReceivedDate").val();
+                var MaterialModel = {
+                    MaterialID: MaterialID,
+                    MaterialNo: MaterialNo,
+                    InvoiceNo: InvoiceNo,
+                    ShippingDate: ShippingDate,
+                    ReceivedDate: ReceivedDate,
+                    VendorId: VendorId,
+                }
+                return MaterialModel;
+            }
+
+            function GetProductModel() {
+                debugger;
+                var producttypeId = $("#ProductTypeId").val();
+                var ProductModelId = $('#ProductModelId').val();
+                var MaterialID = $('#MaterialID').val();
+
+              
+
+                var Qty = $("#Qty").val();
+                var unitprice = ConverttoAmount($("#UnitPrice").val());
+                var CGST = ConverttoAmount($("#CGST").val());
+                var SGST = ConverttoAmount($("#SGST").val());
+                var IGST = ConverttoAmount($("#IGST").val());
+                var TotalTax = ConverttoAmount($("#TotalTax").val());
+                var TotalTaxPercent = ConverttoAmount($('#TotalTaxPercent').val());
+                var TotalBalance = ConverttoAmount($("#TotalBalance").val());
+
+                var SerialNumber = $("#SerialNumber").val();
+                var ACSerialNumber = $("#ACSerialNumber").val();
+                var SerialNoId = $('#SerialNoId').val();
+
+                var HSNCode = $("#HSNCode").val();
+                var Capacity = $("#Capacity").val();
+
+
+                
+            
+           
+            
+                var modelname = $("#ModelName").val();
+                if (modelname == undefined) { modelname = "" };
+                var ModelId = $(".ModelId").val();
+                if (ModelId == undefined) { ModelId = 0 };
+
+                var productModel = {
+                    ProductModelId: ProductModelId,
+                    ModelId: ModelId,
+                    ProductTypeId: producttypeId,
+                    MaterialID: MaterialID,
+                    ModelName: modelname,
+                    UnitPrice: unitprice,
+                    Qty: Qty,
+                    CGST: CGST,
+                    SGST: SGST,
+                    IGST: IGST,
+                    TotalTax: TotalTax,
+                    TotalTaxPercent: TotalTaxPercent,
+                    TotalBalance: TotalBalance,
+                    SerialNumber: SerialNumber,
+                    ACSerialNumber: ACSerialNumber,
+                    HSNCode: HSNCode,
+                    Capacity: Capacity,
+                    SerialNoId: SerialNoId
+                }
+                return productModel;
+            }
+            
+        function SaveProduct() {
+                var isValid = ProductValidations();
+                if (isValid)
+                {
+                    var Product = GetProductModel();
+                    $.ajax({
+                        url: "/Product/SaveProduct",
+                        type: "POST",
+                        data: { model: Product },
+                        success: function (result) {
+                            if (result) {
+                                notification('success', 'Material Products Details updated Successfully');
+                                window.location.href = "/Product/Material?materialId=" + Product.MaterialID;
+                            }
+                            else {
+                                notification('warning', result.message);
+                            }
+                        }
+                    });
+                }
+
+            }
+
+            function DeleteProduct(productModelId, materialId)
+            {
+                $.ajax({
+                    url: "/Product/DeleteProduct",
+                    type: "POST",
+                    data: { productModelId: productModelId },
+                    success: function (result) {
+                        if (result.status) {
+                            notification('success', result.message);
+                            window.location.href = "/Product/Material?materialId=" + materialId;
+                        }
+                        else {
+                            notification('warning', result.message);
+                        }
+                    }
+                });
+            }
+
+            function BindProductModelInput() {
+                $('#bindProductModel').html('<input class="form-control" id="ModelName" name="ModelName" type="text" value="">');
+                $("#UnitPrice").val(convertToAmountFormate(0));
+                $("#CGST").val(convertToAmountFormate(0));
+                $("#SGST").val(convertToAmountFormate(0));
+                $("#IGST").val(convertToAmountFormate(0));
+                $("#TotalTax").val(convertToAmountFormate(0));
+                $("#TotalTaxPercent").val(convertToAmountFormate(0));
+                $("#Capacity").val("");
+                $("#HSNCode").val("");
+                $('.gstLabel').text("(" + parseInt(0) + "%)");
+                $('.IgstLabel').text("(" + parseInt(0) + "%)");
+            }
+
+            function getmodelsbyProductType() {
+                var productTypeId = $("#ProductTypeId").val();
+                if (productTypeId != 0) {
+                    $.ajax({
+                        sync: false,
+                        url: "/Product/GetProductTypeModels",
+                        type: "Get",
+                        data: { productTypeId: productTypeId },
+                        success: function (result) {
+                            var length = result.length;
+                            if (length > 0) {
+                                BindProductModelDropdown(result);
+                            }
+                            else {
+                                BindProductModelInput();
+                            }
+                        }
+                    });
+                }
+
+                
+
+                function BindProductModelDropdown(result) {
+                    var dropdown = '<select class="form-control ModelId" data-val="true" data-val-number="The field ModelId must be a number." data-val-required="The ModelId field is required." id="ModelId" name="ModelId" onchange="BindProductModelInfo()"><option value="0">-- Select --</option>';
+                    $('#ProductModelId').empty();
+                    var options = "";
+                    $.each(result, function (idx, model) {
+                        var option = '<option value="' + model.ModelId + '">' + model.ModelName + '</option>';
+                        options = options + option
+                        $('#ProductModelId').append(option);
+                    });
+                    dropdown = dropdown + options;
+                    dropdown = dropdown + "</select>";
+                    $('#bindProductModel').html(dropdown);
+                    $('#bindProductModel').append('<a onclick="BindProductModelInput()" style="cursor:pointer;">click for new</a>');
+                }
+            }
+
+            function BindProductModelInfo() {
+                var modelId = $(".ModelId").val();
+                if (modelId != 0) {
+                    $.ajax({
+                        sync: false,
+                        url: "/Product/GetProductModel",
+                        type: "Get",
+                        data: { modelId: modelId },
+                        success: function (result) {
+                            var model = result.model;
+                            $("#UnitPrice").val(convertToAmountFormate(model.UnitPrice));
+                            $("#CGST").val(convertToAmountFormate(model.CGST));
+                            $("#SGST").val(convertToAmountFormate(model.SGST));
+                            $("#IGST").val(convertToAmountFormate(model.IGST));
+                            $("#TotalTax").val(convertToAmountFormate(model.TotalTax));
+                            $("#TotalTaxPercent").val(convertToAmountFormate(model.TotalTaxPercent));
+                            $("#Capacity").val(model.Capacity);
+                            $("#HSNCode").val(model.HSNCode);
+                            $('.gstLabel').text("");
+                            $('.IgstLabel').text("");
+                            $('.gstLabel').text("(" + parseInt(model.taxPercent) + "%)");
+                            $('.IgstLabel').text("(" + parseInt(0) + "%)");
+                        }
+                    });
+                }
+            }
+
+            function MaterialCalculations() {
+                var quantity = ConverttoAmount($('#Qty').val());
+                var unitPrice = ConverttoAmount($('#UnitPrice').val());
+                var totalBalance = quantity * unitPrice;
+                $('#TotalBalance').val(convertToAmountFormate(totalBalance));
+                var taxPerCent = ConverttoAmount($('#TotalTaxPercent').val());
+                var igstAmount = ConverttoAmount($('#IGST').val());
+                if (taxPerCent != 0 && igstAmount == 0) {
+                    var gstPercent = (taxPerCent / 2).toFixed(2);
+                    var gstPercentTax = ((unitPrice / 100) * gstPercent).toFixed(2);
+                    var totalTax = (gstPercentTax * 2).toFixed(2);
+                    $('#CGST').val(convertToAmountFormate(gstPercentTax));
+                    $('#SGST').val(convertToAmountFormate(gstPercentTax));
+                    $('#TotalTax').val(convertToAmountFormate(totalTax));
+                    $('.gstLabel').text("(" + parseInt(gstPercent) + "%)");
+
+                    $('.IgstLabel').text("(" + parseInt(0) + "%)");
+                    $('#IGST').val(convertToAmountFormate(0));
+                }
+                else if (taxPerCent != 0 && igstAmount != 0) {
+                    var gstPercent = (taxPerCent / 2).toFixed(2);
+                    var gstPercentTax = ((unitPrice / 100) * gstPercent).toFixed(2);
+                    var totalTax = (gstPercentTax * 2).toFixed(2);
+                    $('#CGST').val(convertToAmountFormate(0));
+                    $('#SGST').val(convertToAmountFormate(0));
+                    //$('#IGST').val(convertToAmountFormate(totalTax));
+                    $('#TotalTax').val(convertToAmountFormate(totalTax));
+                    $('.gstLabel').text("(" + parseInt(0) + "%)");
+                    $('.IgstLabel').text("(" + parseInt(taxPerCent) + "%)");
+                }
+            }
+            function UpdateMaterial() {
+                debugger;
+                var MaterialID = $("#MaterialID").val();
+                var VendorId = $("#VendorId").val();
+                var MaterialNo = $("#MaterialNo").val();
+                var InvoiceNo = $("#InvoiceNo").val();
+                var ShippingDate = $("#ShippingDate").val();
+                var ReceivedDate = $("#ReceivedDate").val();
+                var MaterialModel = {
+                    MaterialID: MaterialID,
+                    MaterialNo: MaterialNo,
+                    InvoiceNo: InvoiceNo,
+                    ShippingDate: ShippingDate,
+                    ReceivedDate: ReceivedDate,
+                    VendorId: VendorId,
+                }
+                
+                updateMaterialInformation(MaterialModel);
+            }
+            function updateMaterialInformation(MaterialModel) {
+                debugger;
+                $.ajax({
+                    async: false,
+                    url: "/Product/updatematerial",
+                    type: "POST",
+                    data: { model: MaterialModel },
+                    success: function (result) {
+                        if (result.status) {
+                            notification('success', result.message);
+                            window.location.href = "/Product/Material?materialId=" + materialId;
+                        }
+                        else {
+                            notification('warning', result.message);
+                        }
+                    },
+                });
+            }
+        </script>
+    }

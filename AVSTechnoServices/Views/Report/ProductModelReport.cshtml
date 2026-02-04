@@ -1,0 +1,25 @@
+﻿@model IEnumerable<AVSModels.Models.ReportModel>
+
+@if (Model != null && Model.FirstOrDefault().ModelName != null)
+{
+    <div class="panel-heading">
+        <span>@Model.FirstOrDefault().ProductTypeName</span>
+    </div>
+    foreach (var product in Model)
+    {
+        <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
+            <div class="info-box orange-bg" style="cursor:pointer;">
+                <i class="fa fa-shopping-cart"></i>
+                <div class="title">Model name : @product.ModelName</div>
+                <div class="title">Purchase   : @product.TotalPurchaseQty</div>
+                <div class="title">Sales      : @product.TotalSalesQty</div>
+                @{ int stock = product.TotalPurchaseQty - product.TotalSalesQty;}
+                <div class="title">Stock: @stock</div>
+            </div>
+        </div>
+    }
+}
+else 
+{ 
+    <span>Models not Exists</span>
+}

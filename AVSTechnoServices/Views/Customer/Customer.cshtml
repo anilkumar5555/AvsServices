@@ -1,0 +1,647 @@
+﻿@model AVSModels.Models.CustomerModel
+
+@{
+    ViewBag.Title = "Customer";
+    Layout = "~/Views/Shared/_CustomMainLayout.cshtml";
+}
+<style>
+    .btm {
+        margin-bottom: 8px !important;
+    }
+
+    .control-label {
+        padding-left: 2px !important;
+        padding-right: 2px !important;
+    }
+
+    .panel-title {
+        color: darkblue !important;
+    }
+</style>
+
+
+<section class="wrapper">
+    <div class="row" id="CustomerContainer">
+        @Html.HiddenFor(m => m.CustomerID)
+    </div>
+    <div class="row" id="CustomerProductContainer">
+
+    </div>
+    <div class="row" id="CustomerProductGrid">
+
+    </div>
+    @if (Model.CustomerID == 0)
+    {
+        <div class="row btm">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <div class="col-md-8"></div>
+                    <div class="col-md-2">
+                        <input type="button" value="Create & Invoice" onclick="saveCustomerinfo(true)" class="btn btn-primary pull-right" />
+                    </div>
+                    <div class="col-md-2">
+                        <input type="button" value="Create As Draft" onclick="saveCustomerinfo()" class="btn btn-primary pull-right" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</section>
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            var customerId = $('#CustomerID').val();
+            loadCustomer(customerId);
+            if (customerId != 0) { loadCustomerProductGrid(customerId) }
+            else { loadCustomerProduct(); }
+        });
+
+        function loadCustomer(customerId = 0) {
+            $("#CustomerContainer").load("/Customer/CreateCustomer?customerID="+ customerId);
+        }
+
+        function loadCustomerProduct(productId = 0, customerId = 0) {
+            $("#CustomerProductContainer").load("/Customer/CreateCustomerProduct?cProductId=" + productId + "&customerId=" + customerId);
+        }
+
+        function loadCustomerProductGrid(customerId) {
+            $("#CustomerProductGrid").load("/Customer/CustomerProducts?customerId=" + customerId);
+        }
+
+
+        function BacktoCustomers() {
+            window.location.href = "/Customer/Index";
+        }
+
+        function saveCustomerinfo(IsInvoice = false) {
+            debugger;
+            var isValid = CustomerValidation();
+            if (isValid) {
+                var CustomerName = $("#CustomerName").val();
+                var customerid = $("#CustomerID").val();
+                var PhoneNumber = $("#PhoneNumber").val();
+                var Address = $("#Address").val();
+                var Email = $('#Email').val();
+                var GSTNo = $('#GSTNO').val();
+                var state = $('#State').val();
+                var Statecode = $('#StateCode').val();
+                var IsSameAs = $('#IsSameAs').val();
+
+                var SCustomerName = $("#SCustomerName").val();
+                var SPhoneNumber = $("#SPhoneNumber").val();
+                var SAddress = $("#SAddress").val();
+                var SEmail = $('#SEmail').val();
+                var SGSTNo = $('#SGSTNO').val();
+                var Sstate = $('#SState').val();
+                var SStatecode = $('#SStateCode').val();
+
+                var cProductId = $("#CProductID").val();
+                var modelId = $("#ModelID").val();
+                var serialId = $("#SerialID").val();
+                var producttypeId = $("#ProductTypeId").val();
+                var quantity = $("#Qty").val();
+                var SerialNumber = $("#SerialNumber").val();
+                var ACSerialNumber = $("#ACSerialNumber").val();
+                var Capacity = $("#Capacity").val();
+                var HSNCode = $("#HSNCode").val();
+
+                var unitprice = ConverttoAmount($("#UnitPrice").val());
+                var CGST = ConverttoAmount($("#CGST").val());
+                var SGST = ConverttoAmount($("#SGST").val());
+                var IGST = ConverttoAmount($("#IGST").val());
+                var sellprice = ConverttoAmount($("#SellPrice").val());
+                var nettotal = ConverttoAmount($("#NetTotal").val());
+                var discount = ConverttoAmount($("#Discount").val());
+                var grosstotal = ConverttoAmount($("#GrossTotal").val());
+                var paymenttypeId = $("#PaymentTypeId").val();
+                var paymentmodeId = $("#PaymentModeId").val();
+                var cPTransactionId = $("#CPTransactionID").val();
+                if (cPTransactionId == "" || cPTransactionId == undefined) {
+                    cPTransactionId = 0;
+                }
+
+                var newpayment = ConverttoAmount($("#NewPayment").val());
+                var paid = ConverttoAmount($("#PaidAmount").val());
+                var remaining = ConverttoAmount($("#RemainingAmount").val());
+                var totaltax = ConverttoAmount($("#Totaltax").val());
+
+                var TransactionModel = {
+                    CPTransactionID: cPTransactionId,
+                    NewPayment: newpayment,
+                    PaidAmount: paid,
+                    RemainingAmount: remaining,
+                    TotalTax: totaltax,
+                }
+
+                var ProductModel = {
+                    CProductID: cProductId,
+                    ModelID: modelId,
+                    SerialID: serialId,
+                    ProductTypeID: producttypeId,
+                    Qty: quantity,
+                    UnitPrice: unitprice,
+                    CGST: CGST,
+                    SGST: SGST,
+                    IGST: IGST,
+                    Capacity: Capacity,
+                    HSNCode: HSNCode,
+                    SellPrice: sellprice,
+                    NetTotal: nettotal,
+                    Discount: discount,
+                    GrossTotal: grosstotal,
+                    SerialNumber: SerialNumber,
+                    ACSerialNumber: ACSerialNumber,
+                    PaymentTypeId: paymenttypeId,
+                    PaymentModeId: paymentmodeId,
+                    Transaction: TransactionModel
+
+                }
+                var CustomerModel = {
+                    CustomerID: customerid,
+                    CustomerName: CustomerName,
+                    PhoneNumber: PhoneNumber,
+                    Email: Email,
+                    Address: Address,
+                    GSTNO: GSTNo,
+                    State: state,
+                    StateCode: Statecode,
+                    IsSameAs: IsSameAs,
+                    
+                    SCustomerName: SCustomerName,
+                    SPhoneNumber: SPhoneNumber,
+                    SEmail: SEmail,
+                    SAddress: SAddress,
+                    SGSTNO: SGSTNo,
+                    SState: Sstate,
+                    SStateCode: SStatecode,
+                    Product: ProductModel
+                }
+
+                SaveCustomer(CustomerModel, IsInvoice);
+            } else {
+                notification('warning', 'Please enter valid information');
+            }
+        }
+
+        function SaveCustomer(CustomerModel, IsInvoice) {
+            debugger;
+            $.ajax({
+                sync: false,
+                url: "/Customer/CreateCustomer ",
+                type: "POST",
+                data: { model: CustomerModel },
+                success: function (result) {
+                    debugger;
+                    if (result.status) {
+                        notification('success', 'Customer Added Successfully  ');
+                        if (IsInvoice) {
+                            GenerateBillReciept(result.customerid);
+                        }
+                        else
+                        {
+                            window.location.href = "/Customer/Customer?CustomerID=" + result.customerid;
+                        }
+                    }
+                    else {
+                        notification('warning', 'failed to Addcustomer')
+                    }
+                }
+            });
+        }
+
+
+        function getmodelsbyProductType() {
+            var productTypeId = $("#ProductTypeId").val();
+            if (productTypeId != 0) {
+                $.ajax({
+                    sync: false,
+                    url: "/Product/GetProductTypeModels",
+                    type: "Get",
+                    data: { productTypeId: productTypeId },
+                    success: function (result) {
+                        $('#ModelID').empty();
+                        $('#ModelID').append($("<option></option>").val(0).html('-- Select --'));
+                        $.each(result, function (idx, model) {
+                            $('#ModelID').append($("<option></option>").val(model.ModelId).html(model.ModelName));
+                        });
+                    }
+                });
+            }
+        }
+
+
+        function BindProductModelInfo() {
+            var modelId = $("#ModelID").val();
+            if (modelId != 0) {
+                $.ajax({
+                    sync: false,
+                    url: "/Product/GetProductModel",
+                    type: "Get",
+                    data: { modelId: modelId },
+                    success: function (result) {
+                        var model = result.model;
+                        var serialNumbers = result.serialNumbers;
+                        $("#UnitPrice").val(convertToAmountFormate(model.UnitPrice));
+                        $("#CGST").val(convertToAmountFormate(model.CGST));
+                        $("#SGST").val(convertToAmountFormate(model.SGST));
+                        $("#IGST").val(convertToAmountFormate(model.IGST));
+                        $("#Totaltax").val(convertToAmountFormate(model.TotalTax));
+                        $("#TotalTaxPercent").val(convertToAmountFormate(model.TotalTaxPercent));
+                        $("#Capacity").val(model.Capacity);
+                        $("#HSNCode").val(model.HSNCode);
+                        $('.gstLabel').text("(" + parseInt(model.taxPercent) + "%)");
+                        $('.IgstLabel').text("(" + parseInt(0) + "%)");
+                        if (serialNumbers != null) {
+                            BindSerialNumbers(serialNumbers);
+                        }
+                    }
+                });
+            }
+        }
+
+        function BindSerialNumbers(serialNumbers) {
+            var tempSerialNum = serialNumbers.SerialNumber.split(",");
+            var tempACSerialNum = serialNumbers.ACSerialNumber.split(",");
+            if (tempSerialNum.length > 0) {
+                var dropdown = '<select class="form-control SerialNumber" data-val="true" data-val-number="The field SerialNumber must be a number." data-val-required="The ModelId field is required." id="SerialNumber" name="SerialNumber" ><option value="0">-- Select --</option>';
+                $('#SerialNumber').empty();
+                var options = "";
+                $.each(tempSerialNum, function (idx, val) {
+                    var option = '<option value="' + val + '">' + val + '</option>';
+                    options = options + option
+                    $('#SerialNumber').append(option);
+                });
+                dropdown = dropdown + options;
+                dropdown = dropdown + "</select>";
+                $('#BindSerialNumber').html(dropdown);
+            }
+            if (tempACSerialNum.length > 0) {
+                var dropdown = '<select class="form-control ACSerialNumber" data-val="true" data-val-number="The field ACSerialNumber must be a number." data-val-required="The ModelId field is required." id="ACSerialNumber" name="ACSerialNumber" ><option value="0">-- Select --</option>';
+                $('#ACSerialNumber').empty();
+                var options = "";
+                $.each(tempACSerialNum, function (idx, val) {
+                    var option = '<option value="' + val + '">' + val + '</option>';
+                    options = options + option
+                    $('#ACSerialNumber').append(option);
+                });
+                dropdown = dropdown + options;
+                dropdown = dropdown + "</select>";
+                $('#BindACSerialNumber').html(dropdown);
+            }
+        }
+
+
+        function ProductCalculation() {
+            var quantity = ConverttoAmount($("#Qty").val());
+            var sellprice = ConverttoAmount($("#SellPrice").val());
+            var newpayment = ConverttoAmount($("#NewPayment").val());
+            var discount = ConverttoAmount($("#Discount").val());
+
+            var grosstotal = ConverttoAmount($("#GrossTotal").val());
+            var nettotal = ConverttoAmount($("#NetTotal").val());
+
+            var paid = ConverttoAmount($("#PaidAmount").val());
+            var remaining = ConverttoAmount($("#RemainingAmount").val());
+
+            var nettotal = quantity * sellprice;
+            grosstotal = nettotal;
+
+            paid = newpayment;
+            remaining = grosstotal - paid;
+
+            if (discount != 0) {
+                grosstotal = grosstotal - discount;
+                remaining = grosstotal - paid;
+            }
+            else {
+                grosstotal = nettotal;
+            }
+
+            $("#NetTotal").val(convertToAmountFormate(nettotal));
+            $("#RemainingAmount").val(convertToAmountFormate(remaining));
+            $("#PaidAmount").val(convertToAmountFormate(paid));
+            $("#GrossTotal").val(convertToAmountFormate(grosstotal));
+            $("#Discount").val(convertToAmountFormate(discount));
+        }
+
+        function CustomerValidation() {
+            var ret = true;
+            var CustomerName = $("#CustomerName").val();
+            if (CustomerName == "" || CustomerName == undefined) {
+                $("#Error_CustomerName").html("Please enter CustomerName");
+                ret = false;
+            }
+            else {
+                $("#Error_CustomerName").html(" ");
+            }
+            var PhoneNumber = $("#PhoneNumber").val();
+            if (PhoneNumber == "" || PhoneNumber == undefined) {
+                $("#Error_PhoneNumber").html("Please enter PhoneNumber");
+                ret = false;
+            }
+            else {
+                $("#Error_PhoneNumber").html(" ");
+            }
+            
+            var ProductTypeId = $("#ProductTypeId").val();
+            if (ProductTypeId == "" || ProductTypeId == undefined) {
+                $("#Error_ProductTypeId").html("Please enter Producttype");
+                ret = false;
+            }
+            else {
+                $("#Error_ProductTypeId").html(" ");
+            }
+            var ModelID = $("#ModelID").val();
+            if (ModelID == "" || ModelID == undefined) {
+                $("#Error_ModelID").html("Please enter ModelName");
+                ret = false;
+            }
+            else {
+                $("#Error_ModelID").html(" ");
+            }
+            var PaymentTypeId = $("#PaymentTypeId").val();
+            if (PaymentTypeId == "" || PaymentTypeId == undefined) {
+                $("#Error_PaymentTypeId").html("Please enter paymenttype");
+                ret = false;
+            }
+            else {
+                $("#Error_PaymentTypeId").html(" ");
+            }
+            var PaymentModeId = $("#PaymentModeId").val();
+            if (PaymentModeId == "" || PaymentModeId == undefined) {
+                $("#Error_PaymentModeId").html("Please enter paymentmode");
+                ret = false;
+            }
+            else {
+                $("#Error_PaymentModeId").html(" ");
+            }
+            var SerialNumber = $("#SerialNumber").val();
+            if (SerialNumber == "" || SerialNumber == undefined) {
+                $("#Error_SerialNumber").html("Please enter SerialNumber");
+                ret = false;
+            }
+            else {
+                $("#Error_SerialNumber").html(" ");
+            }
+            var ACSerialNumber = $("#ACSerialNumber").val();
+            if (ACSerialNumber == "" || ACSerialNumber == undefined) {
+                $("#Error_ACSerialNumber").html("Please enter ACSerialNumber");
+                ret = false;
+            }
+            else {
+                $("#Error_ACSerialNumber").html(" ");
+            }
+            var Qty = $("#Qty").val();
+            if (Qty == "" || Qty == undefined) {
+                $("#Error_Qty").html("Please enter Quantity");
+                ret = false;
+            }
+            else {
+                $("#Error_Qty").html(" ");
+            }
+            var SellPrice = $("#SellPrice").val();
+            if (SellPrice == "" || SellPrice == undefined) {
+                $("#Error_SellPrice").html("Please enter SellPrice");
+                ret = false;
+            }
+            else {
+                $("#Error_SellPrice").html(" ");
+            }
+
+            return ret;
+        }
+        
+        function GenerateBillReciept(customerId) {
+            debugger;
+
+            //window.open("/Customer/CustomerBill?CustomerID=" + customerId, "_new");
+            window.location.href = "/Customer/CustomerBill?customerId=" + customerId, "_new";
+            //window.open("/Vendor/Billvendor?vendorTransactionID=" + vendortransactionId, "_new");
+        }
+
+        function CustomerProductValidation() {
+            var ret = true;
+            var ProductTypeId = $("#ProductTypeId").val();
+            if (ProductTypeId == "" || ProductTypeId == undefined) {
+                $("#Error_ProductTypeId").html("plz enter Producttype");
+                ret = false;
+            }
+            else {
+                $("#Error_ProductTypeId").html(" ");
+            }
+            var PaymentTypeId = $("#PaymentTypeId").val();
+            if (PaymentTypeId == "" || PaymentTypeId == undefined) {
+                $("#Error_PaymentTypeId").html("plz enter paymenttype");
+                ret = false;
+            }
+            else {
+                $("#Error_PaymentTypeId").html(" ");
+            }
+            var PaymentModeId = $("#PaymentModeId").val();
+            if (PaymentModeId == "" || PaymentModeId == undefined) {
+                $("#Error_PaymentModeId").html("plz enter paymentmode");
+                ret = false;
+            }
+            else {
+                $("#Error_PaymentModeId").html(" ");
+            }
+            var SerialNumber = $("#SerialNumber").val();
+            if (SerialNumber == "" || SerialNumber == undefined) {
+                $("#Error_SerialNumber").html("plz enter SerialNumber");
+                ret = false;
+            }
+            else {
+                $("#Error_SerialNumber").html(" ");
+            }
+            var ACSerialNumber = $("#ACSerialNumber").val();
+            if (ACSerialNumber == "" || ACSerialNumber == undefined) {
+                $("#Error_ACSerialNumber").html("plz enter ACSerialNumber");
+                ret = false;
+            }
+            else {
+                $("#Error_ACSerialNumber").html(" ");
+            }
+            var Qty = $("#Qty").val();
+            if (Qty == "" || Qty == undefined) {
+                $("#Error_Qty").html("plz enter Quantity");
+                ret = false;
+            }
+            else {
+                $("#Error_Qty").html(" ");
+            }
+            var SellPrice = $("#SellPrice").val();
+            if (SellPrice == "" || SellPrice == undefined) {
+                $("#Error_SellPrice").html("plz enter SellPrice");
+                ret = false;
+            }
+            else {
+                $("#Error_SellPrice").html(" ");
+            }
+
+            return ret;
+        }
+
+        function SaveCustomerProduct()
+        {
+            debugger;
+            var isValid = CustomerProductValidation();
+            if (isValid) {
+                debugger;
+                var customerid = $("#CustomerID").val();
+                var cProductId = $("#CProductID").val();
+                var producttypeId = $("#ProductTypeId").val();
+                var modelId = $("#ModelID").val();
+                var serialId = $("#SerialID").val();
+                var paymenttypeId = $("#PaymentTypeId").val();
+                var paymentmodeId = $("#PaymentModeId").val();
+                var cPTransactionId = $("#CPTransactionID").val();
+                if (cPTransactionId == "" || cPTransactionId == undefined) {
+                    cPTransactionId = 0;
+                }
+
+
+                var SerialNumber = $("#SerialNumber").val();
+                var ACSerialNumber = $("#ACSerialNumber").val();
+                var Capacity = $("#Capacity").val();
+                var HSNCode = $("#HSNCode").val();
+
+                var unitprice = ConverttoAmount($("#UnitPrice").val());
+                var CGST = ConverttoAmount($("#CGST").val());
+                var SGST = ConverttoAmount($("#SGST").val());
+                var IGST = ConverttoAmount($("#IGST").val());
+                var quantity = $("#Qty").val();
+                var sellprice = ConverttoAmount($("#SellPrice").val());
+                var nettotal = ConverttoAmount($("#NetTotal").val());
+                var newpayment = ConverttoAmount($("#NewPayment").val());
+                var discount = ConverttoAmount($("#Discount").val());
+                var paid = ConverttoAmount($("#PaidAmount").val());
+                var remaining = ConverttoAmount($("#RemainingAmount").val());
+                var totaltax = ConverttoAmount($("#Totaltax").val());
+                var grosstotal = ConverttoAmount($("#GrossTotal").val());
+
+                var TransactionModel = {
+                    CPTransactionID: cPTransactionId,
+                    NewPayment: newpayment,
+                    PaidAmount: paid,
+                    RemainingAmount: remaining,
+                    TotalTax: totaltax,
+                }
+
+                var ProductModel = {
+                    CProductID: cProductId,
+                    CustomerID: customerid,
+                    ModelID: modelId,
+                    SerialID: serialId,
+                    ProductTypeID: producttypeId,
+                    Qty: quantity,
+                    UnitPrice: unitprice,
+                    CGST: CGST,
+                    SGST: SGST,
+                    IGST: IGST,
+                    Capacity: Capacity,
+                    HSNCode: HSNCode,
+                    SellPrice: sellprice,
+                    NetTotal: nettotal,
+                    Discount: discount,
+                    GrossTotal: grosstotal,
+                    SerialNumber: SerialNumber,
+                    ACSerialNumber: ACSerialNumber,
+                    PaymentTypeId: paymenttypeId,
+                    PaymentModeId: paymentmodeId,
+                    PaidAmount: paid,
+                    RemainingAmount: remaining,
+                    Transaction: TransactionModel
+                }
+
+                SaveCustomerProductInfo(ProductModel);
+            } else {
+                notification('warning', 'Please enter valid information');
+            }
+        }
+        function SaveCustomerProductInfo(ProductModel) {
+            debugger;
+            $.ajax({
+                sync: false,
+                url: "/Customer/CreateCustomerProduct ",
+                type: "POST",
+                data: { model: ProductModel },
+                success: function (result) {
+                    if (result.status)
+                    {
+                        debugger;
+                        console.log(ProductModel.CProductID);
+                        if (ProductModel.CProductID == 0) {
+                            notification('success', 'CustomerProduct Added Successfully  ');
+                            window.location.href = "/Customer/Customer?CustomerID=" + result.customerid;
+                        }
+                        else {
+                            notification('success', 'CustomerProduct Details Updated Successfully  ');
+                            window.location.href = "/Customer/Customer?CustomerID=" + result.customerid;
+                        }
+                    }  
+                   
+                    else {
+                        notification('warning', 'failed to Addcustomer')
+                    }
+                }
+            });
+        }
+        function DeleteCustomerProduct(CProductID,customerid) {
+            $.ajax({
+                url: "/Customer/DeleteCustomerProduct",
+                type: "POST",
+                data: { CProductId: CProductID },
+                success: function (result) {
+                    if (result.status) {
+                        notification('success', result.message);
+                        window.location.href = "/Customer/Customer?CustomerID=" + customerid;
+                    }
+                    else {
+                        notification('warning', result.message);
+                    }
+                }
+            });
+        }
+
+        function UpdateCustomer() {
+            var isValid = CustomerValidation();
+            if (isValid) {
+                var CustomerName = $("#CustomerName").val();
+                var CustomerID = $("#CustomerID").val();
+                var PhoneNumber = $("#PhoneNumber").val();
+                var Address = $("#Address").val();
+                var Email = $('#Email').val();
+
+                var CustomerModel = {
+                    CustomerID: CustomerID,
+                    CustomerName: CustomerName,
+                    PhoneNumber: PhoneNumber,
+                    Email: Email,
+                    Address: Address,
+                }
+                updateCustomerInformation(CustomerModel);
+            } else {
+                notification('warning', 'Please enter valid information');
+            }
+        }
+        function updateCustomerInformation(customerModel) {
+            $.ajax({
+                async: false,
+                url: "/Customer/updateCustomer",
+                type: "POST",
+                data: { model: customerModel },
+                success: function (result) {
+                    if (result.status) {
+                        notification('success', result.message);
+                        window.location.href = "/Customer/Customer?CustomerID=" + customerid;
+                    }
+                    else {
+                        notification('warning', result.message);
+                    }
+                },
+            });
+        }
+    </script>
+}
